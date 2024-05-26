@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const socket = io();
+    const sessionId = generateSessionId();
+    let collectedChunks = '';
 
     socket.on('receive_chunk', (data) => {
         console.log("Received chunk: ", data.chunk);  // Debug output
@@ -14,6 +16,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     window.sendMessage = function() {
         const message = document.getElementById('message').value;
         document.getElementById('reply').innerText = '';  // Clear previous reply
-        socket.emit('send_message', { message: message });
+        collectedChunks = '';  // Clear previous chunks
+        socket.emit('send_message', { message: message, session_id: sessionId });
     };
+
+    function generateSessionId() {
+        return 'session-' + Math.random().toString(36).substr(2, 16);
+    }
 });
