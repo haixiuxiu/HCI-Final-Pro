@@ -35,10 +35,23 @@
     </el-header>
     
   </div>
+  <div class="container mt-5">
+    <h1>Chat with Tongyi Qianwen</h1>
+    <div class="form-group">
+        <label for="message">Your Message:</label>
+        <input type="text" id="message" class="form-control">
+    </div>
+    <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+    <h2>Reply:</h2>
+    <p id="reply"></p>
+</div>
+
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
 <script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/element.js') }}"></script>
+<script src="{{ url_for('static', filename='js/qwen.js') }}"></script>
 <script>
   new Vue({
     el: '#app',
@@ -54,6 +67,8 @@
       }
     }
   })
+
+
 </script>
 
 </html>
