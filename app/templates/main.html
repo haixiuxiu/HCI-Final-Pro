@@ -19,7 +19,6 @@
   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/element.css') }}">
-
 </head>
 
 <body>
@@ -33,42 +32,34 @@
         <el-menu-item index="4">处理中心</el-menu-item>
       </el-menu>
     </el-header>
-    
+    <el-container>
+      <el-main>
+        <div class="container mt-5">
+          <h1>Chat with Tongyi Qianwen</h1>
+          <div class="form-group">
+            <label for="message">Your Message:</label>
+            <input type="text" id="message" class="form-control">
+          </div>
+          <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+          <h2>Reply:</h2>
+          <p id="reply"></p>
+        </div>
+        <h1>Audio Recorder</h1>
+        <button @click="startRecording" :disabled="isRecording">Record</button>
+      </el-main>
+    </el-container>
   </div>
-  <div class="container mt-5">
-    <h1>Chat with Tongyi Qianwen</h1>
-    <div class="form-group">
-        <label for="message">Your Message:</label>
-        <input type="text" id="message" class="form-control">
-    </div>
-    <button class="btn btn-primary" onclick="sendMessage()">Send</button>
-    <h2>Reply:</h2>
-    <p id="reply"></p>
-</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+  <script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/element.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/qwen.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/yuyin.js') }}"></script>
 
 
+    
+  
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
-<script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/element.js') }}"></script>
-<script src="{{ url_for('static', filename='js/qwen.js') }}"></script>
-<script>
-  new Vue({
-    el: '#app',
-    data() {
-      return {
-        activeIndex: '1',
-        activeIndex2: '1'
-      };
-    },
-    methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      }
-    }
-  })
-
-
-</script>
 
 </html>

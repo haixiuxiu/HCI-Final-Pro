@@ -1,7 +1,0 @@
-Flask==3.0.3
-Flask-HTTPAuth==4.8.0
-python-socketio==5.11.2
-requests==2.32.2
-pyaudio==0.2.11
-baidu-aip==4.16.13
-dashscope==1.19.2 
