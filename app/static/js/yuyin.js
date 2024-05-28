@@ -6,7 +6,7 @@ function sendMessageWithResult(result) {
   sendMessage();
 }
 
-new Vue({
+const dom = new Vue({
   el: '#app',
   data() {
     return {
@@ -16,23 +16,30 @@ new Vue({
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log('Selected:', key, keyPath);  // Debug output
+      console.log('Selected:', key, keyPath);  
     },
     startRecording() {
-      console.log('Start recording clicked');  // Debug output
+      console.log('Start recording clicked');  
       this.isRecording = true;
       socket.emit('startRecording');
     },
     sendMessage() {
       const message = document.getElementById('message').value;
-      document.getElementById('reply').innerText = '';  // Clear previous reply
       socket.emit('send_message', { message: message });
+    },
+    updateRecordingStatus(status){
+      this.isRecording = status;
     }
   }
 });
 
 socket.on('audio_recognized', (data) => {
-  console.log('audio_recognized', data);  // Debug output
+  console.log('audio_recognized', data);  
   const result = data.result;
   sendMessageWithResult(result);
+});
+
+socket.on('recordingFinished', () => {
+  console.log('Recording finished');
+  dom.updateRecordingStatus(false);  // 使用 Vue 实例的方法更新状态
 });
