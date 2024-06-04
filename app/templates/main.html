@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Search Engine</title>
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: "宋体", "Microsoft YaHei", sans-serif;
+      background-color: #f8f4e9; /* 页面背景颜色 */
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      perspective: 1000px; /* 透视 */
+      background-image: url('static/he.gif');
+      background-size: cover;
+      background-position: center;
+      color: #333;
+    }
+    .header {
+      z-index: 10; /* 确保标题在顶层显示 */
+      position: relative; /* 定位相关性 */
+      background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+      padding: 20px;
+      margin-top: 20px; /* 顶部间距 */
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 80%; /* 控制标题宽度 */
+      text-align: center;
+    }
+    p {
+      font-size: 20px;
+      line-height: 1.8;
+      color: #333; /* 文字颜色 */
+    }
+    .highlight {
+      color: #ab3d1f; /* 突出显示的颜色 */
+    }
+    .card-container {
+      display: flex;
+      justify-content: space-around;
+      width: 80%; /* 控制卡牌容器的宽度以匹配标题宽度 */
+      margin-top: 20px; /* 卡牌与标题的间距 */
+    }
+    .card {
+      flex-basis: 23%; /* 卡牌的基本宽度 */
+      height: 200px; /* 卡牌的高度 */
+      background-color: #ffefd5; /* 卡牌的背景颜色 */
+      border-radius: 5px; /* 边框圆角 */
+      cursor: pointer; /* 鼠标样式 */
+      transition: all 0.3s ease; /* 过渡动画 */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .card-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      font-family: "微软雅黑", sans-serif; /* 修改字体 */
+    }
+    .card:hover {
+      transform: scale(1.05); /* 鼠标悬停放大效果 */
+      background-color: #d2b48c; /* 深黄色背景 */
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+    .floating-button {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      background-color: #333; /* 修改为深色背景 */
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: width 0.3s ease;
+    }
+    /* 悬浮按钮悬停样式 */
+    .floating-button:hover {
+      width: 120px;
+    }
+    /* 悬浮按钮文字 */
+    .button-text {
+      display: none;
+      margin-left: 10px;
+      transition: opacity 0.3s ease;
+    }
+    /* 展开面板容器 */
+    .panel-container {
+      position: fixed;
+      top: 50%;
+      right: 60px;
+      transform: translateY(-50%);
+      background-color: #333; /* 修改为深色背景 */
+      width: 0;
+      height: 100%;
+      overflow: hidden;
+      transition: width 0.3s ease;
+    }
+    /* 展开面板内容 */
+    .panel-content {
+      padding: 20px;
+      color: white;
+    }
+    /* 显示按钮文字 */
+    .expanded .button-text {
+      display: block;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="header">
+    <p>你好，<br>欢迎来到诗词中心！<br><span class="highlight">我是你的好朋友，诗小语。</span></p>
+  </div>
+  <div class="card-container">
+    <div class="card">
+        <a href="学习模式.html" onclick="XuexiMode()"> 
+            <div class="card-content">学习模式</div>
+        </a>
+    </div>
+    
+    <div class="card">
+        <a href="背诵模式.html" onclick="BeisongMode()">
+            <div class="card-content">背诵模式</div>
+        </a>
+    </div>
+
+    <div class="card">
+        <a href="闯关模式.html" onclick="ChuanguanMode()">
+            <div class="card-content">闯关模式</div>
+        </a>
+    </div>
+    
+    <div class="card">
+        <a href="飞花令.html" onclick="FeihuaMode()">
+            <div class="card-content">飞花令</div>
+        </a>
+    </div>
+</div>
+
+
+  <div class="floating-button" onclick="togglePanel()">
+    <span class="button-text">每日推荐</span>
+  </div>
+  <div class="panel-container" id="panel">
+    <div class="panel-content">
+      <h2>推荐内容</h2>
+      <p>这里可以放一些推荐的内容。</p>
+    </div>
+  </div>
+  <script>
+
+    function togglePanel() {
+      var panel = document.getElementById('panel');
+      panel.classList.toggle('expanded');
+    }
+
+
+
+    function XuexiMode() {
+      // 导航到学习模式页面
+      window.location.href = '学习模式.html'; // 更改为您要跳转的学习模式页面链接
+    }
+      function BeisongMode() {
+   
+      window.location.href = '背诵模式.html';
+      }
+
+      function ChuanguanMode() {
+    
+      window.location.href = '闯关模式.html';
+      }
+
+      function FeihuaMode() {
+     
+      window.location.href = '飞花令模式.html';
+    }
+  </script>
+</body>
+</html>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
