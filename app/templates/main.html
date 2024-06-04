@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Search Engine</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="body">
+  <div class="header">
+    <p>你好，<br>欢迎来到诗词中心！<br><span class="highlight">我是你的好朋友，诗小语。</span></p>
+  </div>
+  <div class="card-container">
+    <div class="card">
+      <button onclick="XuexiMode()">
+        <div class="card-content">学习模式</div>
+      </a>
+    </div>
+
+    <div class="card">
+      <button onclick="BeisongMode()">
+        <div class="card-content">背诵模式</div>
+      </a>
+    </div>
+
+    <div class="card">
+      <button onclick="ChuanguanMode()">
+        <div class="card-content">闯关模式</div>
+      </a>
+    </div>
+
+    <div class="card">
+      <button onclick="FeihuaMode()">
+        <div class="card-content">飞花令</div>
+      </a>
+    </div>
+  </div>
+  <div class="floating-button" onclick="togglePanel">
+    <span class="button-text">每日推荐</span>
+  </div>
+  <div class="panel-container" id="panel">
+    <div class="panel-content">
+      <h2>推荐内容</h2>
+      <p>这里可以放一些推荐的内容。</p>
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='js/dump.js') }}"></script>
+  <script>
+    //var questionsOfGridData = {{ questionsOfGridData|safe }};
+</script>
+</body>
+
+</html>

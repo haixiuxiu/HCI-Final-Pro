@@ -1,0 +1,204 @@
+.body {
+    font-family: "宋体", "Microsoft YaHei", sans-serif;
+    background-color: #f8f4e9;
+    /* 页面背景颜色 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    perspective: 1000px;
+    /* 透视 */
+    background-image: url('/static/image/he.gif');
+    background-size: cover;
+    background-position: center;
+    color: #333;
+}
+
+.header {
+    z-index: 10;
+    /* 确保标题在顶层显示 */
+    position: relative;
+    /* 定位相关性 */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* 半透明白色背景 */
+    padding: 20px;
+    margin-top: 20px;
+    /* 顶部间距 */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    /* 控制标题宽度 */
+    text-align: center;
+}
+
+p {
+    font-size: 20px;
+    line-height: 1.8;
+    color: #333;
+    /* 文字颜色 */
+}
+
+.highlight {
+    color: #ab3d1f;
+    /* 突出显示的颜色 */
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    /* 控制卡牌容器的宽度以匹配标题宽度 */
+    margin-top: 20px;
+    /* 卡牌与标题的间距 */
+}
+
+.card {
+    flex-basis: 23%;
+    /* 卡牌的基本宽度 */
+    height: 200px;
+    /* 卡牌的高度 */
+    background-color: #ffefd5;
+    /* 卡牌的背景颜色 */
+    border-radius: 5px;
+    /* 边框圆角 */
+    cursor: pointer;
+    /* 鼠标样式 */
+    transition: all 0.3s ease;
+    /* 过渡动画 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-family: "微软雅黑", sans-serif;
+    /* 修改字体 */
+}
+
+.card:hover {
+    transform: scale(1.05);
+    /* 鼠标悬停放大效果 */
+    background-color: #d2b48c;
+    /* 深黄色背景 */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.floating-button {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background-color: #333;
+    /* 修改为深色背景 */
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: width 0.3s ease;
+}
+
+/* 悬浮按钮悬停样式 */
+.floating-button:hover {
+    width: 120px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.navbar-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-item.active {
+    background-color: #ab3d1f;
+    /* 选中模式的背景颜色 */
+    color: #fff;
+    /* 选中模式的文字颜色 */
+    border-radius: 5px;
+}
+
+/* 悬浮按钮文字 */
+.button-text {
+    display: none;
+    margin-left: 10px;
+    transition: opacity 0.3s ease;
+}
+
+/* 展开面板容器 */
+.panel-container {
+    position: fixed;
+    top: 50%;
+    right: 60px;
+    transform: translateY(-50%);
+    background-color: #333;
+    /* 修改为深色背景 */
+    width: 0;
+    height: 100%;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+/* 展开面板内容 */
+.panel-content {
+    padding: 20px;
+    color: white;
+}
+
+/* 显示按钮文字 */
+.expanded .button-text {
+    display: block;
+    opacity: 1;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+}
+
+.menu-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+    background-color: #ddd;
+}
+
+.menu-item.active {
+    background-color: #f0c040;
+    border-radius: 10px;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.content-box {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 200px;
+    width: 60%;
+    height: 400px;
+    border-radius: 100px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
