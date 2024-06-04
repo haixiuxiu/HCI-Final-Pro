@@ -46,11 +46,13 @@
           <p id="reply"></p>
         </div>
         <h1>Audio Recorder</h1>
-        <button @click="startRecording" :disabled="isRecording">Record</button>
+        <button id="recordButton">Record</button>
         <p>背诵模式</p>
         <div id="cards-container"></div>
        
-      
+        <p>九宫格游戏</p>
+        <div id = "nine"></div>
+        
 
       </el-main>
     </el-container>
@@ -62,9 +64,11 @@
   <script src="{{ url_for('static', filename='js/qwen.js') }}"></script>
   <script>
     var poemsData = JSON.parse('{{ poemData|safe }}');
+    var questionsOfGridData = {{ questionsOfGridData|safe }};
   </script>
-    <script src="{{ url_for('static', filename='js/yuyin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/learn.js') }}"></script>
     <script src="{{ url_for('static', filename='js/poems.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/NineGongGridGame.js') }}"></script>
 </body>
 
 </html>

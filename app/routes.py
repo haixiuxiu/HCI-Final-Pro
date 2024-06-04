@@ -4,6 +4,7 @@ import dashscope
 from . import socketio
 from .myaudio import *
 from .recite import *
+from .gridGame import *
 import json
 
 APP_ID = '74687862'
@@ -18,7 +19,10 @@ dialogues = {}
 @main.route('/')
 def index():
     poems_for_show = load_poems('poems.txt')
-    return render_template('main.html',poemData=json.dumps(poems_for_show))
+    nineGridOfAll = load_exam('NineGongGridGame.txt')
+    # 直接将整个列表进行序列化
+    questionOfGridData = json.dumps(nineGridOfAll, cls=QuestionOfNineGridEncoder)
+    return render_template('main.html', poemData=json.dumps(poems_for_show), questionsOfGridData=questionOfGridData)
 
 @socketio.on('send_message')
 def handle_message(data):
@@ -61,6 +65,8 @@ def handle_message(data):
 
 @socketio.on('startRecording')
 def handle_record_audio():
+    global recording
+    recording = True
     print("Recording started")
     filename = 'audio.wav'
     record_audio(filename, duration=5)
@@ -72,6 +78,13 @@ def handle_record_audio():
     emit('recordingFinished') 
     emit('audio_recognized', {'result': recognize_result})
     print(recognize_result)
+
+@socketio.on('stop_recording')
+def stop_recording():
+    global recording
+    if recording :
+        recording = False
+
 
 @socketio.on('beginRecite')
 def check(answer):

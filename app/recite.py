@@ -29,7 +29,6 @@ def load_poems(file_path):
 def check_recitation(answer):
     # 进行语音识别
     record_audio('recite.wav',2)
-    #result = recognize_audio('recite.wav')
     result = recognize_audio('audio4.wav')
 
     if result!='识别失败':
@@ -45,4 +44,4 @@ def check_recitation(answer):
             print("背诵错误，正确的诗词为:", answer, ", 匹配距离:", distance)
             print("正确的诗词文本为:",answer)
     else:
-        print("1")
+        print("出错")

@@ -5,6 +5,9 @@ from aip import AipSpeech
 APP_ID = '74687862'
 API_KEY = 'CkO7MUoMYwYeVTsog7AZYcU1'
 SECRET_KEY = '1kwn4xvvCbUUzPRwHYwPgSkCurLVeRk2'
+
+recording = False
+
 # 录音
 def record_audio(filename, duration=5):
     CHUNK = 1024
@@ -21,10 +24,13 @@ def record_audio(filename, duration=5):
     print("Recording...")
 
     frames = []
-
+    
     for i in range(0, int(RATE / CHUNK * duration)):
-        data = stream.read(CHUNK)
-        frames.append(data)
+        if recording:
+            data = stream.read(CHUNK)
+            frames.append(data)
+        else:
+            break
 
     stream.stop_stream()
     stream.close()
