@@ -3,6 +3,8 @@ from flask_socketio import emit
 import dashscope
 from . import socketio
 from .myaudio import *
+from .recite import *
+import json
 
 APP_ID = '74687862'
 API_KEY = 'CkO7MUoMYwYeVTsog7AZYcU1'
@@ -15,7 +17,8 @@ dashscope.api_key = "sk-ea631a8d7dea448d850f19da3690abb3"
 dialogues = {}
 @main.route('/')
 def index():
-    return render_template('main.html')
+    poems_for_show = load_poems('poems.txt')
+    return render_template('main.html',poemData=json.dumps(poems_for_show))
 
 @socketio.on('send_message')
 def handle_message(data):
@@ -62,11 +65,15 @@ def handle_record_audio():
     filename = 'audio.wav'
     record_audio(filename, duration=5)
     # 录音结束后立即进行语音识别
-    print("indi finish")
     # recognize_result = recognize_audio(filename)
-    recognize_result = recognize_audio('audio1.wav')#测试用：寄蜉蝣于天地，渺沧海之一粟
-    print("indi finish")
+    recognize_result = recognize_audio('audio4.wav')#测试用：寄蜉蝣于天地，渺沧海之一粟
+    #recognize_result = recognize_audio('audio2.wav')#粤语测试用：寄蜉蝣于天地，渺沧海之一粟
     # 向客户端发送录音完成事件
     emit('recordingFinished') 
     emit('audio_recognized', {'result': recognize_result})
     print(recognize_result)
+
+@socketio.on('beginRecite')
+def check(answer):
+    print('beginRecite')
+    check_recitation(answer)

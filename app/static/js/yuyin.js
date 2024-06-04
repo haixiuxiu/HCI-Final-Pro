@@ -6,19 +6,19 @@ function sendMessageWithResult(result) {
   sendMessage();
 }
 
-const dom = new Vue({
+window.dom = new Vue({
   el: '#app',
-  data() {
-    return {
-      activeIndex: '1',
-      isRecording: false
-    };
+  data: {
+    poems: poemsData, 
+    activeIndex: '1',
+    isRecording: false,
   },
   methods: {
     handleSelect(key, keyPath) {
       console.log('Selected:', key, keyPath);  
     },
     startRecording() {
+      console.log(this.poems[0].author);
       console.log('Start recording clicked');  
       this.isRecording = true;
       socket.emit('startRecording');

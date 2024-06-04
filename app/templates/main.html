@@ -19,6 +19,7 @@
   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/element.css') }}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/menb.css')}}">
 </head>
 
 <body>
@@ -46,20 +47,24 @@
         </div>
         <h1>Audio Recorder</h1>
         <button @click="startRecording" :disabled="isRecording">Record</button>
+        <p>背诵模式</p>
+        <div id="cards-container"></div>
+       
+      
+
       </el-main>
     </el-container>
   </div>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
   <script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/element.js') }}"></script>
   <script src="{{ url_for('static', filename='js/qwen.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/yuyin.js') }}"></script>
-
-
-    
-  
+  <script>
+    var poemsData = JSON.parse('{{ poemData|safe }}');
+  </script>
+    <script src="{{ url_for('static', filename='js/yuyin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/poems.js') }}"></script>
 </body>
 
 </html>

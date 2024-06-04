@@ -37,7 +37,7 @@ def record_audio(filename, duration=5):
     wf.close()
 # 识别
 def recognize_audio(audio_file):
-    '''使用百度语音识别大模型进行语音识别'''
+    # 使用百度语音识别大模型进行语音识别
     client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
 
     # 读取音频文件
@@ -46,8 +46,9 @@ def recognize_audio(audio_file):
 
     # 进行语音识别
     result = client.asr(audio_data, 'wav', 16000, {
-        'dev_pid': 1537,  # 普通话(支持简单的英文识别)模型
+        'dev_pid': 1537, 
     })
+
 
     if 'result' in result:
         # 提取识别结果
