@@ -69,5 +69,5 @@ def playLogic(numOfQuestion,questions):
     else:
         print("出错")  
 
-questions = load_exam("NineGongGridGame.txt")
-playLogic(1,questions)
+#questions = load_exam("NineGongGridGame.txt")
+#playLogic(1,questions)

@@ -66,26 +66,16 @@ def handle_message(data):
 
 @socketio.on('startRecording')
 def handle_record_audio():
-    global recording
-    recording = True
     print("Recording started")
     filename = 'audio.wav'
-    record_audio(filename, duration=5)
+    record_audio(filename, duration=15)
     # 录音结束后立即进行语音识别
     # recognize_result = recognize_audio(filename)
     recognize_result = recognize_audio('audio4.wav')#测试用：寄蜉蝣于天地，渺沧海之一粟
     #recognize_result = recognize_audio('audio2.wav')#粤语测试用：寄蜉蝣于天地，渺沧海之一粟
     # 向客户端发送录音完成事件
-    emit('recordingFinished') 
     emit('audio_recognized', {'result': recognize_result})
     print(recognize_result)
-
-@socketio.on('stop_recording')
-def stop_recording():
-    global recording
-    if recording :
-        recording = False
-
 
 @socketio.on('beginRecite')
 def check(answer):

@@ -39,13 +39,14 @@
   <div class="floating-button" onclick="togglePanel">
     <span class="button-text">每日推荐</span>
   </div>
-  <div class="panel-container" id="panel">
-    <div class="panel-content">
+  <div id="panel">
+    <div>
       <h2>推荐内容</h2>
-      <p>这里可以放一些推荐的内容。</p>
+      <p id="random-content">这里可以放一些推荐的内容。</p>
     </div>
   </div>
   <script src="{{ url_for('static', filename='js/dump.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/recommend.js') }}"></script>
   <script>
     //var questionsOfGridData = {{ questionsOfGridData|safe }};
 </script>

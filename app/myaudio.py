@@ -6,10 +6,8 @@ APP_ID = '74687862'
 API_KEY = 'CkO7MUoMYwYeVTsog7AZYcU1'
 SECRET_KEY = '1kwn4xvvCbUUzPRwHYwPgSkCurLVeRk2'
 
-recording = False
-
 # 录音
-def record_audio(filename, duration=5):
+def record_audio(filename, duration):
     #recording = True
     CHUNK = 1024
     FORMAT = pyaudio.paInt16
@@ -27,11 +25,8 @@ def record_audio(filename, duration=5):
     frames = []
     
     for i in range(0, int(RATE / CHUNK * duration)):
-        if recording:
-            data = stream.read(CHUNK)
-            frames.append(data)
-        else:
-            break
+        data = stream.read(CHUNK)
+        frames.append(data)
 
     stream.stop_stream()
     stream.close()
@@ -42,6 +37,7 @@ def record_audio(filename, duration=5):
     wf.setframerate(RATE)
     wf.writeframes(b''.join(frames))
     wf.close()
+
 # 识别
 def recognize_audio(audio_file):
     # 使用百度语音识别大模型进行语音识别

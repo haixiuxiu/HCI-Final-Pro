@@ -1,6 +1,6 @@
 const socket = io();
 var recordButton = document.getElementById('recordButton')
-recordButton.addEventListener('click', startRecording);
+canPush = true
 
 function sendMessageWithResult(result) {
   const message = result; // 使用识别结果作为消息
@@ -10,6 +10,7 @@ function sendMessageWithResult(result) {
 
 function startRecording() {
   console.log('Start recording clicked');
+  canPush = false;
   socket.emit('startRecording');
 }
 
@@ -18,17 +19,11 @@ function sendMessage() {
   socket.emit('send_message', { message: message });
 }
 
-function updateRecordingStatus(status){
-  isRecording = status;
-}
-
 socket.on('audio_recognized', (data) => {
-  console.log('audio_recognized', data);
+  //console.log('audio_recognized', data);
+  console.log('audio_recognized');
   const result = data.result;
   sendMessageWithResult(result);
+  canPush = true
 })
 
-socket.on('recordingFinished', () => {
-  console.log('Recording finished');
-  updateRecordingStatus(false);
-});

@@ -46,7 +46,7 @@
           <p id="reply"></p>
         </div>
         <h1>Audio Recorder</h1>
-        <button @click="startRecording" :disabled="isRecording">Record</button>
+        <button onclick="startRecording()" :disabled=canPush>Record</button>
       </el-main>
     </el-container>
   </div>
@@ -57,6 +57,6 @@
 <script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/element.js') }}"></script>
 <script src="{{ url_for('static', filename='js/qwen.js') }}"></script>
-<script src="{{ url_for('static', filename='js/yuyin.js') }}"></script>
+<script src="{{ url_for('static', filename='js/learn.js') }}"></script>
 
 </html>
