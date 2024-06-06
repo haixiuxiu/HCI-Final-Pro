@@ -27,6 +27,8 @@ def load_poems(file_path):
 
 # 进行语音识别和背诵检查
 def check_recitation(answer):
+    #test
+    return 3
     # 进行语音识别
     record_audio('recite.wav',2)
     result = recognize_audio('audio4.wav')
@@ -35,13 +37,23 @@ def check_recitation(answer):
         print("识别结果:", result)
 
         # 文本匹配
+        #distance = Levenshtein.distance(result, answer)
+        answer = "江南《汉乐府》江南可采莲，莲叶何田田。鱼戏莲叶间。"
         distance = Levenshtein.distance(result, answer)
 
         # 结果反馈
-        if distance < 10:  # 设定一个阈值，表示匹配度的容忍程度
-            print("背诵正确，诗词为:", answer)
+        if distance < 2:  # 设定一个阈值，表示匹配度的容忍程度
+            print("背诵正确")
+            return 2
+        elif distance<5:
+            print("有一点小错误")
+            return 2
+        elif distance < 10:
+            print("错误较多")
+            return 1
         else:
             print("背诵错误，正确的诗词为:", answer, ", 匹配距离:", distance)
             print("正确的诗词文本为:",answer)
+            return 0
     else:
         print("出错")

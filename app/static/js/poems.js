@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function(poemsData) {
+document.addEventListener('DOMContentLoaded', function (poemsData) {
+    const socket = io();
     // 创建蒙版元素
     var overlay = document.createElement('div');
     overlay.classList.add('overlay');
@@ -7,55 +8,85 @@ document.addEventListener('DOMContentLoaded', function(poemsData) {
     // 获取容器元素
     var container = document.getElementById('cards-container');
     // 循环遍历诗歌数据并生成卡片
-    for(var key in window.poemsData) {
+    for (var key in window.poemsData) {
         if (window.poemsData.hasOwnProperty(key)) {
             var poem = window.poemsData[key];
             console.log(poem);
-            var cardHtml = `
-                <button class="card" data-index="${key}">
-                    <h2>${poem.title}</h2>
-                    <h3>${poem.author}</h3>
-                    <p>${poem.content}</p>
-                </button>
-            `;
+            var cardHtml = `<img src="/static/image/background.jpg" alt="Poem Image" width="200" height="150">`;
+
+            starsContainer = document.createElement('div');
+            starsContainer.className = 'stars';
+            for (let j = 0; j < 3; j++) {
+                star = document.createElement('i');
+                star.id = `star-${key}-${j}`;
+                star.className = 'fas fa-star star';
+                starsContainer.appendChild(star);
+            }
+
             var button = document.createElement('div');
+            button.id = `${key} `;
             console.log(button);
             button.innerHTML = cardHtml;
+            button.appendChild(starsContainer);
 
             // 使用立即执行函数将 key 和 poem 传递到闭包中
             (function (key, poem) {
                 button.addEventListener('click', function () {
-                    console.log('123456');
                     overlay.style.display = 'block';
-
                     // 在蒙版上添加所需的内容或操作界面
-                    overlay.innerHTML = `
+                    var content = `
                         <div class="overlay-content">
+                        <div id ="content">
                             <h2>${poem.title}</h2>
                             <h3>${poem.author}</h3>
                             <p>${poem.content}</p>
-                            <button id="start-recitation-btn">开始背诵</button>
-                            <button id="close-btn">关闭</button>
+                        </div>
+                            <button id="start-recitation-btn" :disabled = canStart>开始背诵</button>
+                            <button id="close-btn" :disabled = canClose>关闭</button>
                         </div>
                     `;
+                    overlay.innerHTML = content;
                     // 开始背诵按钮的点击事件监听器
                     document.getElementById('start-recitation-btn').addEventListener('click', function () {
-                        // 在这里执行开始背诵的操作
-                        console.log('开始背诵:', poem.title);
-                        const socket = io();
-                        answer = poem.title + poem.author + poem.content;
-                        socket.emit('beginRecite', answer);
-                        // 可以添加更多操作，比如跳转到背诵页面等
+                        //给出提示
+                        var contentDiv = document.getElementById('content');
+                        contentDiv.innerHTML = '在倒计时结束后请开始背诵，注意，您的背诵时间只有15s。准备好了吗？让我们开始吧！';
+                        //背诵期间禁用按键
+                        document.getElementById('start-recitation-btn').disabled = true;
+                        document.getElementById('close-btn').disabled = true;
+                        setTimeout(function () {
+                            // 在这里执行开始背诵的操作
+                            console.log('开始背诵:', poem.title);
+                            console.log('/static/image/recite.gif');
+                            var contentDiv = document.getElementById('content');
+                            contentDiv.innerHTML = `<img src="/static/image/recite.gif" alt="Poem Image">`;
+                            const socket = io();
+                            answer = poem.title + poem.author + poem.content;
+                            socket.emit('beginRecite', answer);
+                            socket.on('recite_end', (reward) => {
+                                console.log(reward);
+                                document.getElementById('start-recitation-btn').disabled = false;
+                                document.getElementById('close-btn').disabled = false;
+                                mark(key, reward);
+                            });
+                        }, 5000);
                     });
                     // 关闭蒙版按钮的点击事件监听器
                     document.getElementById('close-btn').addEventListener('click', function () {
                         // 隐藏蒙版
                         overlay.style.display = 'none';
+
                     });
                 });
             })(key, poem);
 
             container.appendChild(button);
+        }
+    }
+    function mark(key, reward) {
+        for (var i = 0; i < reward; i++) {
+            var star = document.getElementById(`star-${key}-${i}`);
+            star.classList.add('rated');
         }
     }
 });
