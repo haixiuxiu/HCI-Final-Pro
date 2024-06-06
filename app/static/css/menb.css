@@ -1,12 +1,14 @@
 .overlay {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色 */
-    z-index: 999; /* 确保在最上层 */
-    display: none; /* 默认隐藏 */
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .overlay-content {
@@ -21,15 +23,49 @@
 
 .grid-container {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
+
 .grid-item {
     display: inline-block;
+    justify-content: center;
+    align-items: center;
     margin: 10px;
 }
+
 .grid-item button {
     display: inline-block;
     width: 30px;
     height: 30px;
     margin: 2px;
+}
+
+.boardOfNine{
+    background-image: url('/static/image/boardOfNine.jpg');
+    background-size: cover;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modeSelect {
+    width: 100px; /* 设置按钮宽度 */
+    height: 100px; /* 设置按钮高度 */
+    background-image: url('/static/image/modeButton.jpg');
+    background-size: cover; /* 使图片覆盖按钮 */
+    background-repeat: no-repeat;
+    border: none; /* 移除按钮边框 */
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    border: none;
+    transition: transform 0.6s; /* 添加过渡效果 */
+    transform-style: preserve-3d; /* 保持3D效果 */
+}
+
+.modeSelect.flipped {
+    transform: rotateY(180deg);
+    transition: transform 0.6s; /* 添加过渡效果 */
+    transform-style: preserve-3d; /* 保持3D效果 */
 }

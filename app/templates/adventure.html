@@ -32,16 +32,23 @@
     </div>
 
     <p>九宫格游戏</p>
-    <div id="nine"></div>
+    <p>游戏规则：每关游戏将给出一个九宫格，九宫格中包含一句五言或七言诗句，你需要找出正确的诗句
+        注意：有干扰项哦
+        输入方法：语音输入或按照顺序点击</p>
+    <button id="modeSelect" class="modeSelect"></button>
+
+    <div id="nine" class="recite-card-container"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
     <script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/element.js') }}"></script>
     <script src="{{ url_for('static', filename='js/qwen.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/yuyin.js') }}"></script>
     <script src="{{ url_for('static', filename='js/NineGongGridGame.js') }}"></script>
     <script>
-        var questionsOfGridData = {{ questionsOfGridData|safe }};
+        var questionsOfGridData = {{ questionsOfGridData| safe }};
+        document.getElementById('modeSelect').addEventListener('click', function () {
+            this.classList.toggle('flipped');
+        });
     </script>
 </body>
 

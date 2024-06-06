@@ -202,3 +202,26 @@ p {
     border-radius: 100px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
+
+.recite-card-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px; /* 控制卡片之间的间距 */
+}
+.recite-card {
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 5px; /* 控制卡片周围的间距 */
+    box-sizing: border-box; /* 包含内边距和边框 */
+}
+.stars {
+    margin-top: 10px;
+}
+.star {
+    font-size: 20px;
+    color: lightgray;
+    margin: 0 2px;
+}
+.star.rated {
+    color: gold;
+}

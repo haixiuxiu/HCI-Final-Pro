@@ -146,7 +146,8 @@ def handle_record_audio():
 @socketio.on('beginRecite')
 def check(answer):
     print('beginRecite')
-    check_recitation(answer)
+    reward = check_recitation(answer)
+    emit('recite_end',2)
 
 @main.route('/page1')
 def page1():
