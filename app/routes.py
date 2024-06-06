@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template,Flask, request, send_from_directory, current_app,jsonify
 from flask_socketio import emit
 import dashscope
 from . import socketio
@@ -6,7 +6,10 @@ from .myaudio import *
 from .recite import *
 from .gridGame import *
 import json
-
+from .feihualing import *
+import random
+import base64
+from .word2picture import generate_image
 APP_ID = '74687862'
 API_KEY = 'CkO7MUoMYwYeVTsog7AZYcU1'
 SECRET_KEY = '1kwn4xvvCbUUzPRwHYwPgSkCurLVeRk2'
@@ -64,6 +67,69 @@ def handle_message(data):
     #print(dialogues)
     emit('complete')  # Send completion signal
 
+@socketio.on('structure_message')
+def handle_message(data):
+    session_id = data.get('session_id')
+    user_message = data.get('message')
+
+    # 检查 session_id 是否已经存在
+    if session_id not in dialogues:
+        dialogues[session_id] = []  # 初始化对话历史
+        first_response = True  # 标记为第一次回复
+    else:
+        first_response = False  # 不是第一次回复
+
+    # 更新对话上下文
+    dialogues[session_id].append({"role": "user", "content": user_message})
+
+    # 准备对话内容作为模型输入
+    context = "\n".join([f"{msg['role']}: {msg['content']}" for msg in dialogues[session_id]])
+    prompt = f"{context}\nAssistant:"
+
+    # 如果是第一次回复，添加固定格式的提示
+    if first_response:
+        fixed_format_prompt = (
+        "根据用户请求的关键字，按照以下固定格式生成古诗词的介绍：\n"
+        "标题：《{title}》 作者：{author} 朝代：{dynasty}\n"  # 标题、作者、朝代在同一行
+        "创作背景：{background} 诗词正文：\n{content}\n"  # 创作背景和诗词正文在同一行
+        "注释：{annotations} 赏析：\n{appreciation}\n"  # 注释和赏析在同一行
+        "影响与评价：{evaluation} 相关作品：\n{related_works}\n"  # 影响与评价和相关作品在同一行
+        "请生成回复。"
+    )
+        # 将固定格式的提示添加到prompt中
+        prompt += fixed_format_prompt.format(
+            title="",
+            author="",
+            dynasty="",
+            background="",
+            content="",
+            annotations="",
+            appreciation="",
+            evaluation="",
+            related_works=""
+        )
+
+    # 调用 AI 模型生成回复
+    response_generator = dashscope.Generation.call(
+        model='qwen-turbo',
+        prompt=prompt,
+        stream=True,
+        top_p=0.8
+    )
+    previous_length = 0
+    paragraph = ""
+    for resp in response_generator:
+        paragraph = resp.output['text']
+        chunk = paragraph[previous_length:]
+        previous_length = len(paragraph)
+        emit('receive_chunk', {'chunk': chunk})
+        socketio.sleep(0.1)  # 让控制权，以便缓冲区刷新和客户端处理
+
+    # 将 AI 的回复添加到对话上下文中
+    dialogues[session_id].append({"role": "assistant", "content": paragraph})
+
+    # 发送完成信号
+    emit('complete')
 @socketio.on('startRecording')
 def handle_record_audio():
     print("Recording started")
@@ -100,4 +166,42 @@ def page3():
 
 @main.route('/page4')
 def page4():
-    return render_template('learn.html')
+    return render_template('飞花令.html')
+@main.route('/start', methods=['GET'])
+def start_game():
+    global current_keyword
+    current_keyword = random.choice(keywords)
+    return jsonify({'keyword': current_keyword})
+
+@main.route('/submit', methods=['POST'])
+def submit_response():
+    global current_keyword
+    data = request.get_json()
+    user_response = data['user_response']
+    keyword = data['keyword']
+
+    ai_response = get_ai_response(keyword,user_response)
+    user_result = judge_response(user_response, keyword)
+    ai_result = judge_response(ai_response, keyword)
+
+    judge_result = '用户正确!' if user_result else '用户错误!'
+    if ai_response:
+        judge_result += ' AI选手: ' + ('正确!' if ai_result else '错误!')
+    else:
+        judge_result += ' AI选手: 无法回答!'
+
+    return jsonify({'judge_result': judge_result, 'ai_response': ai_response})
+
+@main.route('/generate', methods=['POST'])
+def generate():
+    description = request.form['description']
+    image_name, error = generate_image(description)
+    if error:
+        return f"Error: {error}", 500
+    with open(f'app/static/generated_images/{image_name}', 'rb') as img_file:
+        img_base64 = base64.b64encode(img_file.read()).decode('utf-8')
+    return jsonify(image_base64=img_base64)
+
+@main.route('/static/generated_images/<filename>')
+def send_image(filename):
+    return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)

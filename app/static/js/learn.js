@@ -16,9 +16,13 @@ function startRecording() {
 
 function sendMessage() {
   const message = document.getElementById('message').value;
-  socket.emit('send_message', { message: message });
-}
+  console.log('Sending message!!!:', message);
 
+  // Emit the message to the server
+  socket.emit('send_message', { message: message });
+
+  
+}
 socket.on('audio_recognized', (data) => {
   //console.log('audio_recognized', data);
   console.log('audio_recognized');
