@@ -51,43 +51,21 @@
     align-items: center;
 }
 
- /* Switch开关样式 */
- /* 必须是input为 checkbox class 添加 switch 才能实现以下效果 */
- input[type='checkbox'].switch{
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    position: relative;
-    width: 40px;
-    height: 20px;
-    background: #ccc;
-    border-radius: 10px;
-    transition: border-color .3s, background-color .3s;
+.modeSelect {
+    width: 100px; /* 设置按钮宽度 */
+    height: 100px; /* 设置按钮高度 */
+    background-image: url('/static/image/modeButton.jpg');
+    background-size: cover; /* 使图片覆盖按钮 */
+    background-repeat: no-repeat;
+    border: none; /* 移除按钮边框 */
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    border: none;
+    transition: transform 0.6s; /* 添加过渡效果 */
+    transform-style: preserve-3d; /* 保持3D效果 */
 }
 
-input[type='checkbox'].switch::after {
-    content: '';
-    display: inline-block;
-    width: 1rem;
-    height:1rem;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0, 0, 2px, #999;
-    transition:.4s;
-    top: 2px;
-    position: absolute;
-    left: 2px;
-}
-
-input[type='checkbox'].switch:checked {
-    content : "语音模式";
-    background: rgb(19, 206, 102);
-}
-/* 当input[type=checkbox]被选中时：伪元素显示下面样式 位置发生变化 */
-input[type='checkbox'].switch:checked::after {
-    content: '点击模式';
-    position: absolute;
-    left: 55%;
-    top: 2px;
+.modeSelect.flipped {
+    transform: rotateY(180deg);
+    transition: transform 0.6s; /* 添加过渡效果 */
+    transform-style: preserve-3d; /* 保持3D效果 */
 }

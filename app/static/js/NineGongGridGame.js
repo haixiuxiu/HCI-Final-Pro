@@ -4,9 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var overlay = document.createElement('div');
     overlay.classList.add('overlay');
     document.body.appendChild(overlay);
-    var checkbox = document.querySelector('.switch'); // 获取复选框元素
-    var isChecked = checkbox.checked; // 获取当前状态
-    console.log(isChecked); // 打印当前状态（true 或 false）
+
 
     // 获取容器元素
     var container = document.getElementById('nine');
