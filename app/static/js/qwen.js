@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const socket = io();
     const sessionId = generateSessionId();

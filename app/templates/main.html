@@ -6,44 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Image Search Engine</title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Long+Cang&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Long+Cang&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
 </head>
-<body class="body">
-  <div class="header">
-    <p>你好，<br>欢迎来到诗词中心！<br><span class="highlight">我是你的好朋友，诗小语。</span></p>
-  </div>
+
+  <body class="body mainbackgroud">
+
+    <div class="header">
+      <p>你好，<br>欢迎来到诗词中心！<br><span class="highlight">我是你的好朋友，诗小语。</span></p>
+    </div>
+  
+
   <div class="card-container">
-    <div class="card">
-      <button onclick="XuexiMode()">
+    <div class="card card1">
+      <button class="myButton" onclick="XuexiMode()">
         <div class="card-content">学习模式</div>
-      </a>
+      </button>
     </div>
 
-    <div class="card">
-      <button onclick="BeisongMode()">
+    <div class="card card2">
+      <button class="myButton" onclick="BeisongMode()">
         <div class="card-content">背诵模式</div>
-      </a>
+      </button>
     </div>
 
-    <div class="card">
-      <button onclick="ChuanguanMode()">
+    <div class="card card3">
+      <button class="myButton" onclick="ChuanguanMode()">
         <div class="card-content">闯关模式</div>
-      </a>
+      </button>
     </div>
 
-    <div class="card">
-      <button onclick="FeihuaMode()">
+    <div class="card card4">
+      <button class="myButton" onclick="FeihuaMode()">
         <div class="card-content">飞花令</div>
-      </a>
+      </button>
     </div>
+  
   </div>
-  <div class="floating-button" onclick="togglePanel">
-    <span class="button-text">每日推荐</span>
-  </div>
-  <div id="panel">
-    <div>
-      <h2>推荐内容</h2>
-      <p id="random-content">这里可以放一些推荐的内容。</p>
-    </div>
+
+  <div class="below">
+ 
+    <p id="random-content"></p>
+ 
   </div>
   <script src="{{ url_for('static', filename='js/dump.js') }}"></script>
   <script src="{{ url_for('static', filename='js/recommend.js') }}"></script>

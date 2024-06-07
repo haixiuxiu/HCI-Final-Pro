@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('nav-chuangguan').classList.add('selected');
     const socket = io();
     // 创建蒙版元素
     var overlay = document.createElement('div');

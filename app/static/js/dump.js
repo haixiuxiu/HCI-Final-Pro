@@ -1,7 +1,4 @@
-function togglePanel() {
-    var panel = document.getElementById('panel');
-    panel.classList.toggle('expanded');
-}
+
 
 function XuexiMode() {
     window.location.href = '/page1'; 

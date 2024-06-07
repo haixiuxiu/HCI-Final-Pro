@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Image Search Engine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,41 +19,47 @@
   <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>古风字体</title>
+
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body class="body">
-  <div class="header">
 
-  </div>
+
   <div class="navbar">
-    <div class="navbar-item" onclick="selectMode(1)">学习模式</div>
-    <div class="navbar-item" onclick="selectMode(2)">背诵模式</div>
-    <div class="navbar-item" onclick="selectMode(3)">闯关模式</div>
-    <div class="navbar-item" onclick="selectMode(4)">飞花令</div>
+    <div class="navbar-item" id="nav-xuexi" onclick="XuexiMode()">学习模式</div>
+    <div class="navbar-item" id="nav-beisong" onclick="BeisongMode()">背诵模式</div>
+    <div class="navbar-item" id="nav-chuangguan" onclick="ChuanguanMode()">闯关模式</div>
+    <div class="navbar-item" id="nav-feihualing" onclick="FeihuaMode()">飞花令</div>
   </div>
-  <div id="app">
-    <el-container>
-      <el-main>
-        <div class="container mt-5">
-          <h1>Chat with Tongyi Qianwen</h1>
-          <div class="form-group">
-            <label for="message">Your Message:</label>
-            <input type="text" id="message" class="form-control">
-          </div>
-          <button class="btn btn-primary" onclick="sendMessage()">Send</button>
-          <div id="imageContainer" style="display:none;">
-            <h2>生成的图片：</h2>
-            <img id="generatedImage" src="" alt="生成的图片">
-        </div>
-          <h2>Reply:</h2>
-          <p id="reply"></p>
-        </div>
-        <h1>Audio Recorder</h1>
-        <button onclick="startRecording()" :disabled=canPush>Record</button>
-      </el-main>
-    </el-container>
+
+
+
+  <div id="app" class="container">
+
+    <div class="learncard card-top">
+      <p>和诗小语一起聊天吧！</p>
+      <div class="form-container">
+        <input type="text" id="message" class="form-control" placeholder="输入您的消息...">
+        <button class="btn" onclick="sendMessage()">发送</button>
+        <button class="btn" onclick="startRecording()" :disabled="canPush">说话</button>
+      </div>
+    </div>
+
+    <div class="learncard">
+
+      <p>答曰:</p>
+      <p id="reply"></p>
+
+      <div id="imageContainer">
+        <img id="generatedImage">
+      </div>
+    </div>
+  </div>
+
+
+  </el-main>
+  </el-container>
   </div>
 </body>
 
@@ -62,5 +69,6 @@
 <script src="{{ url_for('static', filename='js/element.js') }}"></script>
 <script src="{{ url_for('static', filename='js/qwen.js') }}"></script>
 <script src="{{ url_for('static', filename='js/learn.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dump.js') }}"></script>
 
 </html>

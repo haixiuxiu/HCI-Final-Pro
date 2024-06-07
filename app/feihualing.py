@@ -1,4 +1,6 @@
 import dashscope
+import random
+
 class HostAgent:
     def __init__(self, keywords):
         self.keywords = keywords

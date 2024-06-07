@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('nav-xuexi').classList.add('selected');
+})
+
 const socket = io();
 var recordButton = document.getElementById('recordButton')
 canPush = true

@@ -1,38 +1,62 @@
 .body {
-    font-family: "宋体", "Microsoft YaHei", sans-serif;
-    background-color: #f8f4e9;
-    /* 页面背景颜色 */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    
-    perspective: 1000px;
-    /* 透视 */
-    background-image: url('/static/image/he.gif');
-    background-size: cover;
-    background-position: center;
-    color: #333;
-}
+    font-family: "宋体", sans-serif;
+      background-color: #f8f4e9;
+      /* 页面背景颜色 */
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      
+      perspective: 1000px;
+      /* 透视 */
+      background-image: url('/static/image/he.gif');
+      background-size: cover;
+      background-position: center;
+      color: #333;
+  }
+  .mainbackgroud
+  {
+    background-image: url('/static/image/zhubeijing.gif');
+  }
 
-.header {
+  .header {
     z-index: 10;
-    /* 确保标题在顶层显示 */
+
     position: relative;
     /* 定位相关性 */
-    background-color: rgba(255, 255, 255, 0.8);
+    background-image: linear-gradient(to right, #d0ac70db, #e6e4e3);
+    color: white; 
+    animation: colorShift 10s infinite alternate;
     /* 半透明白色背景 */
     padding: 20px;
     margin-top: 20px;
     /* 顶部间距 */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
+    width: 76%;
     /* 控制标题宽度 */
     text-align: center;
+
 }
+
+.below {
+    z-index: 10;
+    /* 确保标题在顶层显示 */
+    position: relative;
+    /* 定位相关性 */
+    background-color: rgba(255, 255, 255, 0.3);
+    /* 半透明白色背景 */
+    padding: 20px;
+    margin-top: 20px;
+    /* 顶部间距 */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 200;
+    /* 控制标题宽度 */
+    text-align: center;
+  }
 
 p {
     font-size: 20px;
@@ -60,26 +84,44 @@ p {
     /* 卡牌的基本宽度 */
     height: 200px;
     /* 卡牌的高度 */
-    background-color: #ffefd5;
+    width: 100px;
+  
+    /*background: url('/static/image/ju.jpg') ;
+    background-size: cover;
     /* 卡牌的背景颜色 */
-    border-radius: 5px;
+    border-radius: 15px;
     /* 边框圆角 */
     cursor: pointer;
     /* 鼠标样式 */
     transition: all 0.3s ease;
     /* 过渡动画 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+    transition: all 0.3s ease;
+    border: 1px solid #ddd; /* 更柔和的边框颜色 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  
 }
 
-.card-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    font-family: "微软雅黑", sans-serif;
-    /* 修改字体 */
-}
+.card1 {  background: url('/static/image/lan.jpg') ; 
+    background-size: cover;}
+  .card2 {  background: url('/static/image/mei.jpg') ; 
+    background-size: cover; }
+  .card3 { background: url('/static/image/ju.jpg') ; 
+    background-size: cover; }
+  .card4 {  background: url('/static/image/zhu.jpg') ; 
+    background-size: cover; }
+  
+    .card-content {
+        display: flex;
+        justify-content: center;  
+        align-items: center;      
+        height: 100%;            
+        text-align: center;      
+        font-weight: 900;
+        font-family: 'Noto Sans SC', sans-serif; 
+        color: #333; 
+    }
+    
 
 .card:hover {
     transform: scale(1.05);
@@ -115,16 +157,30 @@ p {
 .navbar {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 40px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0)); 
+    height: 60px; 
+    width: 600px;
+    position: relative;  
+      border-radius: 15px;
 }
 
 .navbar-item {
     padding: 10px 20px;
     cursor: pointer;
+    font-size: 20px;
+    font-family: "宋体", sans-serif;
     transition: background-color 0.3s ease;
+
 }
 
-.navbar-item.active {
+.navbar-item.selected {
+    background-color: #ab3d1f;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.navbar-item:hover {
     background-color: #ab3d1f;
     /* 选中模式的背景颜色 */
     color: #fff;
@@ -139,6 +195,11 @@ p {
     transition: opacity 0.3s ease;
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 5c55df771d9040d7e2955b719fdaf5f305d8ecee
 .content {
     display: flex;
     justify-content: center;
@@ -190,9 +251,105 @@ p {
 }
 .star {
     font-size: 20px;
-    color: lightgray;
+    color: white;
     margin: 0 2px;
 }
 .star.rated {
     color: gold;
+}
+
+.mainheader {
+    position: relative;
+    background-size: cover;
+    width: 100%;
+    height: 100% ;/* 根据需要调整高度 */
+    background: url('/static/image/juanzhou.png') no-repeat center center;
+  
+  }
+
+  #random-content {
+    font-size: 90%;  
+  }
+
+  .myButton {
+  
+    background-color: transparent;
+    /* 调整字体样式和大小 */
+    font-family: 'Noto Sans SC', serif; /* 使用古风字体 */
+    font-size: 20px; 
+
+   height:100px;
+   width:100px;
+
+    border: none; /* 移除边框 */
+
+    color: #333; /* 深灰色文字 */
+  
+    padding: 10px; 
+    margin: 50px;
+  }
+
+ 
+/*learn界面*/
+  .chat-container {
+    display: flex;
+    height:200px;
+   width:2000px;
+
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+
+.btn{
+    background-color: #65562c; /* 金色背景 */
+    color: rgb(80, 79, 79); 
+
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    box-shadow: 0 4px #996c30; 
+    transition: all 0.3s ease; 
+}
+
+.btn:hover {
+
+    transform: translateY(4px); 
+}
+
+
+
+
+
+.learncard {
+    background: rgba(244, 244, 244, 0.5);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 80%; /* 卡片宽度 */
+    max-height: 500px; /* 卡片最大高度 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+    margin-top: 20px;
+}
+
+
+
+
+
+
+.shadow-image {
+    border-radius: 20px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.shadow-image:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
+    transform: translateY(4px); 
 }
