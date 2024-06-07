@@ -316,8 +316,8 @@ p {
     background: rgba(244, 244, 244, 0.5);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 80%; /* 卡片宽度 */
-    max-height: 500px; /* 卡片最大高度 */
+    width: 100%; /* 卡片宽度 */
+    max-height: 400px; /* 卡片最大高度 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -336,4 +336,40 @@ p {
 .shadow-image:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
     transform: translateY(4px); 
+}
+
+.fei {
+   font-size:30px;
+   width: 800px;
+    background-color: rgba(238, 238, 238, 0.834); 
+    padding: 10px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+
+    margin: 0px auto 10px auto;  /* 水平居中并设置外边距 */
+    font-family: 'Long Cang', sans-serif; 
+    line-height: 1.6; /* 设置行高 */
+    color: #303030; 
+}
+
+#keyword {
+    background-color: rgba(255, 255, 255, 0.8); /* 浅白色背景，略带透明 */
+    border: 1px solid #ccc; /* 灰色边框 */
+    padding: 0px 5px; /* 内边距 */
+    border-radius: 5px; /* 圆角边框 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 轻微阴影 */
+    max-width: 80%; /* 最大宽度 */
+    margin: 0px auto; /* 水平居中并设置外边距 */
+    display: flex; /* 使用 Flexbox 布局 */
+    justify-content: space-between; /* 内部元素间隔均匀分布 */
+    align-items: center; /* 垂直居中对齐 */
+}
+
+#current-keyword {
+    font-weight: bold; /* 关键字字体加粗 */
+    color: #2a2a2a; /* 深灰色文字 */
+}
+
+.keyword-label {
+    color: #424344; 
 }

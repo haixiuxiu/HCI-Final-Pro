@@ -16,6 +16,7 @@
     <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
     <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Long+Cang&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
@@ -34,9 +35,15 @@
         <div class="navbar-item" id="nav-feihualing" onclick="FeihuaMode()">飞花传令</div>
       </div>
 
-    <div id="fly">
-        <h1>飞花令游戏</h1>
-        <div id="keyword">关键字: <span id="current-keyword"></span></div>
+    <div  id="fly">
+        <div class="fei">
+        飞花令游戏
+    </div>
+    <div id="keyword">
+        <span class="keyword-label">关键字:</span> <span id="current-keyword"></span>
+    </div>
+    
+        </div>
         <div class="chat-container">
             
             <div class="chat-content" id="chat-container">
@@ -59,9 +66,9 @@
     </div>
 
     <div class="overlay" id="level-overlay">
-        <div>恭喜你通过了第 <span id="overlay-current-level"></span> 关!</div>
+        <div class="gongxi">恭喜你通过了第 <span id="overlay-current-level"></span> 关!</div>
         
-        <button onclick="nextLevel()">进入下一关</button>
+        <button class=nextbutton onclick="nextLevel()">进入下一关</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
