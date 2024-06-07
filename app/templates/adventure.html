@@ -32,10 +32,17 @@
     </div>
 
     <p>九宫格游戏</p>
-    <p>游戏规则：每关游戏将给出一个九宫格，九宫格中包含一句五言或七言诗句，你需要找出正确的诗句
+    <p>游戏规则：每关游戏将给出一个九宫格，九宫格中包含一句五言或七言诗句，你需要找出正确的诗句。
+        你可以点击右边的毛笔选择使用语音模式或点击模式进行闯关。
+        语音模式你只需要在规定的录音时间内说出正确的答案，注意：只有一次作答机会；
+        点击模式你需要在规定时间内按顺序点击九宫格内的汉字卡片，如果点错了可以在作答区点击清除。
         注意：有干扰项哦
-        输入方法：语音输入或按照顺序点击</p>
-    <button id="modeSelect" class="modeSelect"></button>
+        你准备好接受挑战了吗？让我们开始吧！</p>
+    <div>
+        <span id="voice">语音模式</span>
+        <button id="modeSelect" class="modeSelect"></button>
+        <span id="click" style="color: brown;">点击模式</span>
+    </div>
 
     <div id="nine" class="recite-card-container"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
@@ -48,7 +55,17 @@
         var questionsOfGridData = {{ questionsOfGridData| safe }};
         document.getElementById('modeSelect').addEventListener('click', function () {
             this.classList.toggle('flipped');
+            var select1 = document.getElementById('voice');
+            var select2 = document.getElementById('click');
+            if (this.classList.contains('flipped')) {
+                select1.style.color = 'red';
+                select2.style.color = 'black';
+            } else {
+                select1.style.color = 'black';
+                select2.style.color = 'red';
+            }
         });
+        var answerArray = [];
     </script>
 </body>
 

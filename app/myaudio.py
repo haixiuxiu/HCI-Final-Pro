@@ -37,6 +37,7 @@ def record_audio(filename, duration):
     wf.setframerate(RATE)
     wf.writeframes(b''.join(frames))
     wf.close()
+    print('end')
 
 # 识别
 def recognize_audio(audio_file):

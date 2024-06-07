@@ -27,8 +27,6 @@ def load_poems(file_path):
 
 # 进行语音识别和背诵检查
 def check_recitation(answer):
-    #test
-    return 3
     # 进行语音识别
     record_audio('recite.wav',2)
     result = recognize_audio('audio4.wav')
