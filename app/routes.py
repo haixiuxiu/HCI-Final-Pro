@@ -81,7 +81,13 @@ def handle_record_audio():
 def check(answer):
     print('beginRecite')
     reward = check_recitation(answer)
-    emit('recite_end',2)
+    emit('recite_end',reward)
+
+@socketio.on('beginSpeak')
+def check(answer):
+    print(answer[3:])
+    reward = playLogic(answer[3:])
+    emit('speak_end',reward)
 
 @main.route('/page1')
 def page1():
