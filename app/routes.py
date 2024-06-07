@@ -188,10 +188,13 @@ def page3():
 @main.route('/page4')
 def page4():
     return render_template('飞花令.html')
+
+# 初始化 HostAgent 实例
+host_agent = HostAgent(keywords)
 @main.route('/start', methods=['GET'])
 def start_game():
     global current_keyword
-    current_keyword = random.choice(keywords)
+    current_keyword = host_agent.give_keyword()
     return jsonify({'keyword': current_keyword})
 
 @main.route('/submit', methods=['POST'])
