@@ -44,7 +44,7 @@ async function startGame(conf=true) {
             document.getElementById('judge-result').innerText = '';
             document.getElementById('user-input').value = '';
             const chatContainer = document.getElementById('chat-container');
-            chatContainer.innerHTML = ''; // 清空之前的对话
+            chatContainer.innerHTML='';
 
             // 显示输入框和提交按钮
             console.log('显示输入框和提交按钮');
@@ -52,12 +52,14 @@ async function startGame(conf=true) {
             const resultContainer = document.getElementById('result');
             const keywordContainer = document.getElementById('keyword');
             const fly_start_recording=document.getElementById('fly-start-recording');
+            const chat_content = document.getElementById('chat-content');
 
             if (fly_start_recording) fly_start_recording.style.display = 'block';
             if (inputContainer) inputContainer.style.display = 'flex';
             if (resultContainer) resultContainer.style.display = 'block';
             if (keywordContainer) keywordContainer.style.display = 'block';
-
+            if (chat_content) chat_content.style.display = 'flex';
+            if (chatContainer) chat_content.style.display = 'flex';
             
             correctAnswers = 0;
             updateLevelInfo();
