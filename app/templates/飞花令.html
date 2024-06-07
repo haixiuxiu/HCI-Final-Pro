@@ -38,7 +38,7 @@
         <h1>飞花令游戏</h1>
         <div id="keyword">关键字: <span id="current-keyword"></span></div>
         <div class="chat-container">
-            <img src="static/image/bg.jpg" class="chat-background" alt="Background Image">
+            <img src="static/image/flybg.jpg" class="chat-background" alt="Background Image">
             <div class="chat-content" id="chat-container">
                 <!-- 对话消息将被插入到这里 -->
             </div>
@@ -47,6 +47,8 @@
             <input type="text" id="user-input" placeholder="输入你的回答">
             <button onclick="submitResponse()">提交</button>
         </div>
+        <button class="flybtn" onclick="startRecordingFly()" :disabled=canPush id="fly-start-recording">语音输入</button>
+
         <div id="result">结果: <span id="judge-result"></span></div>
         <div class="level-info">
             当前关卡: <span id="current-level"></span> |

@@ -32,7 +32,9 @@ async function startGame() {
             const inputContainer = document.getElementById('input-container');
             const resultContainer = document.getElementById('result');
             const keywordContainer = document.getElementById('keyword');
+            const fly_start_recording=document.getElementById('fly-start-recording');
 
+            if (fly_start_recording) fly_start_recording.style.display = 'block';
             if (inputContainer) inputContainer.style.display = 'flex';
             if (resultContainer) resultContainer.style.display = 'block';
             if (keywordContainer) keywordContainer.style.display = 'block';
@@ -172,3 +174,25 @@ async function submitResponse() {
         console.error('Failed to submit response:', response.status);
     }
 }
+
+
+const socket = io();
+canPush = true
+
+function startRecordingFly() {
+    console.log('Start recording clicked');
+    canPush = false;
+    socket.emit('startRecordingFly');
+}
+function sendMessageWithResultFly(result) {
+  const message = result; // 使用识别结果作为消息
+  document.getElementById('user-input').value = message;
+  sendMessage();
+}
+socket.on('audio_recognizedFly', (data) => {
+    //console.log('audio_recognized', data);
+    console.log('audio_recognizedFly');
+    const result = data.result;
+    sendMessageWithResultFly(result);
+    canPush = true
+  })

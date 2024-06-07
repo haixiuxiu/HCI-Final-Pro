@@ -197,3 +197,10 @@ button.start-game:hover {
     max-width: 80%;
     border-radius: 10px;
 }
+.flybtn{
+    bottom: 20px;
+    right: 20px;
+    background-color: #28a745;
+    color: white;
+    display: none;
+}
