@@ -155,3 +155,31 @@
     border-radius: 5px;
     z-index: 10;
 }
+
+.gameLevel{
+    border-radius: 20px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.gameLevel:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
+    transform: translateY(4px); 
+}
+
+.reciteBtn{
+    background-color: #fffbf9;
+    color: black; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    box-shadow: 0 4px #918078; 
+    height: 35px;
+}
+
+.reciteBtn:disabled {
+    color: grey;  
+    background-color: #e0e0e0;
+    box-shadow: none; 
+}

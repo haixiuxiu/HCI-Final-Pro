@@ -11,25 +11,25 @@ document.addEventListener('DOMContentLoaded', function () {
     for (var key in questionsOfGridData) {
         var wrapper = document.createElement('div');
         wrapper.style.display = 'flex';
-        wrapper.style.flexDirection = 'column'; 
-        wrapper.style.alignItems = 'center'; 
+        wrapper.style.flexDirection = 'column';
+        wrapper.style.alignItems = 'center';
         wrapper.style.width = '200px';
 
-        var index = parseInt(key,10);
-        var cardHtml = `<img src="/static/image/game${index+1}.png" alt="Play Image" style="border-radius: 20px;" width="200" height="150">`;
+        var index = parseInt(key, 10);
+        var cardHtml = `<img src="/static/image/game${index + 1}.png" alt="Play Image" style="border-radius: 20px;" width="200" height="150">`;
         var button = document.createElement('div');
         button.innerHTML = cardHtml;
-        button.style.marginBottom = '10px';
+        button.className = 'gameLevel';
 
         var state = document.createElement('div');
-        state.id=`state-${key}`;
+        state.id = `state-${key}`;
         state.style.backgroundImage = "url(/static/image/before.png)";
-        state.style.width = "30px"; 
-        state.style.height = "30px"; 
+        state.style.width = "30px";
+        state.style.height = "30px";
         state.style.backgroundSize = "contain"; // 确保图片完全显示
         state.style.backgroundRepeat = "no-repeat";
         state.style.backgroundPosition = "center";
-       
+
         wrapper.appendChild(button);
         wrapper.appendChild(state);
 
@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     overlay.style.display = 'none';
                     overlay.innerHTML = ''; // 清空 overlay 内容
                     answerArray = [];
-                    socket.off('speak_end'); 
-                    if(timer){
+                    socket.off('speak_end');
+                    if (timer) {
                         clearTimeout(timer);
                     }
                 });
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (mode == 1) {
                                     addToAnswer(text, modelAnswer, key);
                                 }
-                                
+
                             });
                         })(topic.title[i][j], topic.answer, key);
                     }
@@ -89,36 +89,79 @@ document.addEventListener('DOMContentLoaded', function () {
                 answer.id = 'answer';
                 answer.className = 'answer';
 
+                board.appendChild(containerOfTopic);
+                board.appendChild(answer);
+
+                overlay.appendChild(board);
+
                 // 语音模式
                 if (mode == 0) {
                     console.log(key);
                     socket.emit('beginSpeak', topic.answer);
-                    socket.off('speak_end');
-                    socket.on('speak_end', (reward) => {
-                        if (reward == 1) {
-                            isWin = 1;
-                        }
-                        else {
-                            isWin = 0;
-                        }
-                        finalScore(isWin, key);
-                    });
+                    setTimeout(function () {
+                        var container = document.getElementById(`board-${key}`);
+                        var countdown = document.createElement('div');
+                        countdown.style.width = "78px";  // 设置宽度
+                        countdown.style.height = "38px";  // 设置高度
+                        countdown.style.position = "absolute";
+                        countdown.style.top = "74.5%";  // Center vertically
+                        countdown.style.left = "62.5%";
+                        countdown.style.transform = "translate(-50%, -50%)";
+                        countdown.style.backgroundImage = "url('/static/image/game5.gif')";
+                        countdown.style.backgroundSize = "cover";
+                        container.appendChild(countdown);
+
+                        setTimeout(function () {
+                            countdown.parentNode.removeChild(countdown);
+                            socket.off('speak_end');
+                            socket.on('speak_end', (reward) => {
+                                if (reward == 1) {
+                                    isWin = 1;
+                                }
+                                else {
+                                    isWin = 0;
+                                }
+                                finalScore(isWin, key);
+                            });
+                        }, 5000);
+                    }, 5000);
                 }
 
                 (function (key, topic, mode) {
                     timer = setTimeout(function () {
                         // 超时处理
                         if (mode == 1 && !document.getElementById('win') && !document.getElementById('lose')) {
-                            checkAnswer(topic.answer.trim().substring(3), document.getElementById('answer'), key);
+                            var container = document.getElementById(`board-${key}`);
+                            var countdown = document.createElement('div');
+                            countdown.id = 'countdown';
+                            countdown.style.width = "78px";  // 设置宽度
+                            countdown.style.height = "38px";  // 设置高度
+                            countdown.style.position = "absolute";
+                            countdown.style.top = "74.5%";  // Center vertically
+                            countdown.style.left = "62.5%";
+                            countdown.style.transform = "translate(-50%, -50%)";
+                            countdown.style.backgroundImage = "url('/static/image/game5.gif')";
+                            countdown.style.backgroundSize = "cover";
+                            container.appendChild(countdown);
+
+                            setTimeout(function () {
+                                if (countdown.parentNode) {
+                                    countdown.parentNode.removeChild(countdown);
+                                }
+                                checkAnswer(topic.answer.trim().substring(3), document.getElementById('answer'), key);
+                                answerArray = [];
+                            }, 5000);
                         }
-                        answerArray = [];
-                    }, 10000); 
+                    }, 5000);
+                    document.querySelectorAll('.grid-item button').forEach(button => {
+                        button.addEventListener('click', function () {
+                            if (answerArray.length === topic.answer.trim().substring(3).length) {
+                                checkAnswer(topic.answer.trim().substring(3), document.getElementById('answer'), key);
+                                clearTimeout(timer);
+                            }
+                        });
+                    });
                 })(key, topic, mode);
-
-                board.appendChild(containerOfTopic);
-                board.appendChild(answer);
-
-                overlay.appendChild(board);
             });
         })(key);
     }
@@ -132,7 +175,7 @@ function addToAnswer(text, answer, key) {
     var answerContainer = document.getElementById('answer');
     var button = document.createElement('button');
     button.innerText = text;
-    button.style.background='linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0))';
+    button.style.background = 'linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0))';
 
     console.log(answerContainer);
 
@@ -158,6 +201,7 @@ function removeFromAnswer(button) {
 }
 
 function checkAnswer(modelAnswer, answerContainer, key) {
+    console.log(answerArray);
     var answerString = "";
     for (var i = 0; i < answerArray.length; i++) {
         answerString += answerArray[i];
@@ -190,22 +234,28 @@ function checkAnswer(modelAnswer, answerContainer, key) {
 function finalScore(isWin, key) {
     var board = document.getElementById(`board-${key}`);
 
-    if (isWin == 1) {
+    if (isWin == 1 && !document.getElementById('win') && !document.getElementById('lose')) {
         var state = document.getElementById(`state-${key}`);
         state.style.backgroundImage = 'url(/static/image/win.png)';
         console.log(state);
         var win = document.createElement('div');
         win.id = 'win';
         win.innerHTML = "恭喜，回答正确!";
-        win.className="chenggong";
-        
+        win.className = "chenggong";
+
         board.appendChild(win);
     }
     else {
-        var lose = document.createElement('div');
-        lose.id = 'lose';
-        lose.innerHTML = "很遗憾，未能正确作答，再接再厉！";
-        lose.className = "shibai";
-        board.appendChild(lose);
+        if (!document.getElementById('win') && !document.getElementById('lose')) {
+            var lose = document.createElement('div');
+            lose.id = 'lose';
+            lose.innerHTML = "很遗憾，未能正确作答，再接再厉！";
+            lose.className = "shibai";
+            board.appendChild(lose);
+        }
+    }
+    var countdown = document.getElementById('countdown');
+    if(countdown){
+        countdown.parentNode.removeChild(countdown);
     }
 }

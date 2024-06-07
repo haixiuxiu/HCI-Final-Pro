@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function (poemsData) {
                             <p>${poem.content}</p>
                         </div>
                         <div style="text-align: center;">
-                            <button id="start-recitation-btn" :disabled = canStart>开始背诵</button>
-                            <button id="close-btn" :disabled = canClose>关闭</button>
+                            <button id="start-recitation-btn" class='reciteBtn' :disabled = canStart>开始背诵</button>
+                            <button id="close-btn" class='reciteBtn' :disabled = canClose>关闭</button>
                         </div>
                     `;
 
@@ -82,15 +82,8 @@ document.addEventListener('DOMContentLoaded', function (poemsData) {
 
                         setTimeout(function () {
                             // 在这里执行开始背诵的操作
-<<<<<<< HEAD
-=======
-                            console.log('开始背诵:', poem.title);
-                            console.log('/static/image/recite.gif');
-
->>>>>>> 5c55df771d9040d7e2955b719fdaf5f305d8ecee
                             var contentDiv = document.getElementById('content');
                             contentDiv.innerHTML = `<img src="/static/image/recite.gif" alt="Poem Image">`;
-
 
                             const socket = io();
                             answer = poem.title + poem.author + poem.content;
