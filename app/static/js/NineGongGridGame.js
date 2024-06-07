@@ -195,13 +195,16 @@ function finalScore(isWin, key) {
         console.log(state);
         var win = document.createElement('div');
         win.id = 'win';
-        win.innerHTML = "恭喜，回答正确";
+        win.innerHTML = "恭喜，回答正确!";
+        win.className="chenggong";
+        
         board.appendChild(win);
     }
     else {
         var lose = document.createElement('div');
         lose.id = 'lose';
-        lose.innerHTML = "很遗憾，回答错误，再接再厉！";
+        lose.innerHTML = "很遗憾，未能正确作答，再接再厉！";
+        lose.className = "shibai";
         board.appendChild(lose);
     }
 }

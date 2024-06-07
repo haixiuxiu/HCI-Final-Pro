@@ -1,5 +1,10 @@
 from .myaudio import *
 import Levenshtein
+import re
+
+def remove_punctuation(text):
+    # 只保留汉字、字母和数字字符
+    return re.sub(r'[^\w\s\u4e00-\u9fff]', '', text)
 
 # 设置参数
 FORMAT = 'pcm'  # 语音格式，这里假设是PCM格式
@@ -30,10 +35,11 @@ def check_recitation(answer):
     # 进行语音识别
     record_audio('recite.wav',15)
     result = recognize_audio('recite.wav')
-
+    answer = remove_punctuation(answer)
+    print(answer)
     if result!='识别失败':
         print("识别结果:", result)
-
+        result = remove_punctuation(result)
         # 文本匹配
         distance = Levenshtein.distance(result, answer)
         #answer = "江南《汉乐府》江南可采莲，莲叶何田田。鱼戏莲叶间。"
