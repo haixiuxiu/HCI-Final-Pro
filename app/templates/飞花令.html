@@ -20,10 +20,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menb.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fly.css') }}">
     <title>古风字体</title>
 </head>
 
 <body class="body">
+
+
     <div class="navbar">
         <div class="navbar-item" onclick="selectMode(1)">学习模式</div>
         <div class="navbar-item" onclick="selectMode(2)">背诵模式</div>
@@ -31,23 +34,40 @@
         <div class="navbar-item" onclick="selectMode(4)">飞花令</div>
     </div>
 
-    <p>飞花令</p>
     <div id="fly">
         <h1>飞花令游戏</h1>
-    <div id="keyword">关键字: <span id="current-keyword"></span></div>
-    <div id="responses">
-        <div id="user-response">用户: <input type="text" id="user-input" /> <button onclick="submitResponse()">提交</button></div>
-        <div id="ai-response">AI选手: <span id="ai-output"></span></div>
+        <div id="keyword">关键字: <span id="current-keyword"></span></div>
+        <div class="chat-container">
+            <img src="static/image/flybg.jpg" class="chat-background" alt="Background Image">
+            <div class="chat-content" id="chat-container">
+                <!-- 对话消息将被插入到这里 -->
+            </div>
+        </div>
+        <div class="input-container" id="input-container">
+            <input type="text" id="user-input" placeholder="输入你的回答">
+            <button onclick="submitResponse()">提交</button>
+        </div>
+        <button class="flybtn" onclick="startRecordingFly()" :disabled=canPush id="fly-start-recording">语音输入</button>
+
+        <div id="result">结果: <span id="judge-result"></span></div>
+        <div class="level-info">
+            当前关卡: <span id="current-level"></span> |
+            目标: <span id="level-target"></span> |
+            正确回答: <span id="correct-answers"></span>
+        </div>
+        <button class="start-game" onclick="startGame()">开始游戏</button>
     </div>
-    <div id="result">结果: <span id="judge-result"></span></div>
-    <button onclick="startGame()">开始游戏</button>
+
+    <div class="overlay" id="level-overlay">
+        <div>恭喜你通过了第 <span id="overlay-current-level"></span> 关!</div>
+        <img id="level-image" src="" alt="Level Image">
+        <button onclick="nextLevel()">进入下一关</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
     <script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/element.js') }}"></script>
     <script src="{{ url_for('static', filename='js/qwen.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/yuyin.js') }}"></script>
     <script src="{{ url_for('static', filename='js/feihualing.js') }}"></script>
     <script>
         
