@@ -2,20 +2,35 @@ let currentKeyword = '';
 let currentLevel = 1;
 let correctAnswers = 0;
 
-const levels = [
-    { number: 1, target: 10, image: 'path/to/level1.jpg' },
-    { number: 2, target: 20, image: 'path/to/level2.jpg' },
-    { number: 3, target: 30, image: 'path/to/level3.jpg' },
-    { number: 4, target: 40, image: 'path/to/level4.jpg' },
-    { number: 5, target: 50, image: 'path/to/level5.jpg' }
-];
+const levels = [];
 
-async function startGame() {
+function generateLevel(levelNumber) {
+    return {
+        number: levelNumber,
+        target: levelNumber * 2,
+        image: 'static/image/background.jpg'
+    };
+}
+
+function getLevel(levelNumber) {
+    while (levels.length < levelNumber) {
+        levels.push(generateLevel(levels.length + 1));
+    }
+    return levels[levelNumber - 1];
+}
+
+async function startGame(conf=true) {
     // 首先显示规则介绍
-    showRules();
-
-    // 等待用户阅读规则后，再开始游戏
-    const start = confirm('请阅读并理解规则后点击确定开始游戏');
+    var start=false
+    if(conf)
+    {
+        showRules();
+        // 等待用户阅读规则后，再开始游戏
+        start = confirm('请阅读并理解规则后点击确定开始游戏');
+    }
+    else{
+        start = true;
+    }
     if (start) {
         const response = await fetch('/start');
         if (response.ok) {
@@ -39,7 +54,7 @@ async function startGame() {
             if (resultContainer) resultContainer.style.display = 'block';
             if (keywordContainer) keywordContainer.style.display = 'block';
 
-            currentLevel = 1;
+            
             correctAnswers = 0;
             updateLevelInfo();
         } else {
@@ -49,8 +64,9 @@ async function startGame() {
 }
 
 function updateLevelInfo() {
-    document.getElementById('current-level').innerText = currentLevel;
-    document.getElementById('level-target').innerText = levels[currentLevel - 1].target;
+    const level = getLevel(currentLevel);
+    document.getElementById('current-level').innerText = level.number;
+    document.getElementById('level-target').innerText = level.target;
     document.getElementById('correct-answers').innerText = correctAnswers;
 }
 
@@ -105,7 +121,7 @@ function showLevelOverlay() {
     const levelImage = document.getElementById('level-image');
 
     levelText.innerText = currentLevel;
-    levelImage.src = levels[currentLevel - 1].image;
+    
 
     overlay.style.display = 'flex';
 }
@@ -120,7 +136,7 @@ function nextLevel() {
     currentLevel++;
     correctAnswers = 0;
     updateLevelInfo();
-    startGame(); // 开始下一关
+    startGame(false); // 开始下一关
 }
 
 async function submitResponse() {

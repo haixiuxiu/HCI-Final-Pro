@@ -144,11 +144,11 @@ def handle_record_audio():
 @socketio.on('startRecordingFly')
 def handle_record_audio():
     print("Recording started")
-    filename = 'audio.wav'
+    filename = 'feihualing.wav'
     record_audio(filename, duration=6)
     # 录音结束后立即进行语音识别
-    # recognize_result = recognize_audio(filename)
-    recognize_result = recognize_audio('audio4.wav')#测试用：寄蜉蝣于天地，渺沧海之一粟
+    recognize_result = recognize_audio(filename)
+    #recognize_result = recognize_audio('audio4.wav')#测试用：寄蜉蝣于天地，渺沧海之一粟
     #recognize_result = recognize_audio('audio2.wav')#粤语测试用：寄蜉蝣于天地，渺沧海之一粟
     # 向客户端发送录音完成事件
     emit('audio_recognizedFly', {'result': recognize_result})
@@ -186,10 +186,13 @@ def page3():
 @main.route('/page4')
 def page4():
     return render_template('飞花令.html')
+
+# 初始化 HostAgent 实例
+host_agent = HostAgent(keywords)
 @main.route('/start', methods=['GET'])
 def start_game():
     global current_keyword
-    current_keyword = random.choice(keywords)
+    current_keyword = host_agent.give_keyword()
     return jsonify({'keyword': current_keyword})
 
 @main.route('/submit', methods=['POST'])
