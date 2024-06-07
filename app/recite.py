@@ -28,22 +28,22 @@ def load_poems(file_path):
 # 进行语音识别和背诵检查
 def check_recitation(answer):
     # 进行语音识别
-    record_audio('recite.wav',2)
-    result = recognize_audio('audio4.wav')
+    record_audio('recite.wav',15)
+    result = recognize_audio('recite.wav')
 
     if result!='识别失败':
         print("识别结果:", result)
 
         # 文本匹配
-        #distance = Levenshtein.distance(result, answer)
-        answer = "江南《汉乐府》江南可采莲，莲叶何田田。鱼戏莲叶间。"
         distance = Levenshtein.distance(result, answer)
+        #answer = "江南《汉乐府》江南可采莲，莲叶何田田。鱼戏莲叶间。"
+        #distance = Levenshtein.distance(result, answer)
 
         # 结果反馈
-        if distance < 2:  # 设定一个阈值，表示匹配度的容忍程度
+        if distance < 5:  # 设定一个阈值，表示匹配度的容忍程度
             print("背诵正确")
-            return 2
-        elif distance<5:
+            return 3
+        elif distance < 7:
             print("有一点小错误")
             return 2
         elif distance < 10:

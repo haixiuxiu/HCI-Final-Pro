@@ -30,21 +30,21 @@
         <div class="navbar-item" onclick="selectMode(3)">闯关模式</div>
         <div class="navbar-item" onclick="selectMode(4)">飞花令</div>
     </div>
-
-    <p>九宫格游戏</p>
-    <p>游戏规则：每关游戏将给出一个九宫格，九宫格中包含一句五言或七言诗句，你需要找出正确的诗句。
-        你可以点击右边的毛笔选择使用语音模式或点击模式进行闯关。
-        语音模式你只需要在规定的录音时间内说出正确的答案，注意：只有一次作答机会；
-        点击模式你需要在规定时间内按顺序点击九宫格内的汉字卡片，如果点错了可以在作答区点击清除。
-        注意：有干扰项哦
-        你准备好接受挑战了吗？让我们开始吧！</p>
-    <div>
-        <span id="voice">语音模式</span>
-        <button id="modeSelect" class="modeSelect"></button>
-        <span id="click" style="color: brown;">点击模式</span>
+    <div class="background-container">
+        <p style="width: 1100px;margin-top: 10;margin-bottom: 0;">九宫格游戏</p>
+        <p style="width: 1100px;margin-top:0;margin-bottom: 0;text-align: left;">
+            游戏规则：每关游戏将给出一个九宫格，九宫格中包含一句五言或七言诗句，你需要找出正确的诗句。
+            你可以在下方选择闯关模式。
+            语音模式需要在10s内说出正确的答案，注意：只有一次作答机会；
+            点击模式需要在10内按顺序点击九宫格内的汉字卡片，如果点错了可以在作答区点击清除。
+        <p style="width: 1100px;margin-top:0;margin-bottom: 0;">你准备好接受挑战了吗？让我们开始吧！</p>
+        <div style="height: 70px;">
+            <span id="voice">语音模式</span>
+            <button id="modeSelect" class="modeSelect"></button>
+            <span id="click" style="color: red;">点击模式</span>
+        </div>
     </div>
-
-    <div id="nine" class="recite-card-container"></div>
+    <div id="nine" class="game-card-container"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
     <script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>

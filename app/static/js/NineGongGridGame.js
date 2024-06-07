@@ -8,10 +8,31 @@ document.addEventListener('DOMContentLoaded', function () {
     // 获取容器元素
     var container = document.getElementById('nine');
     for (var key in questionsOfGridData) {
-        var cardHtml = `<img src="/static/image/backgroundAd.jpg" alt="Play Image" width="200" height="150">`;
+        var wrapper = document.createElement('div');
+        wrapper.style.display = 'flex';
+        wrapper.style.flexDirection = 'column'; 
+        wrapper.style.alignItems = 'center'; 
+        wrapper.style.width = '200px';
+
+        var index = parseInt(key,10);
+        var cardHtml = `<img src="/static/image/game${index+1}.png" alt="Play Image" style="border-radius: 20px;" width="200" height="150">`;
         var button = document.createElement('div');
         button.innerHTML = cardHtml;
-        container.appendChild(button);
+        button.style.marginBottom = '10px';
+
+        var state = document.createElement('div');
+        state.id=`state-${key}`;
+        state.style.backgroundImage = "url(/static/image/before.png)";
+        state.style.width = "30px"; 
+        state.style.height = "30px"; 
+        state.style.backgroundSize = "contain"; // 确保图片完全显示
+        state.style.backgroundRepeat = "no-repeat";
+        state.style.backgroundPosition = "center";
+       
+        wrapper.appendChild(button);
+        wrapper.appendChild(state);
+
+        container.appendChild(wrapper);
 
         // 使用立即执行函数将 key 传递到闭包中
         (function (key) {
@@ -29,10 +50,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 var closeButton = document.createElement('button');
                 closeButton.className = 'close-button';
                 closeButton.innerHTML = '&times;';
+                var timer;
                 closeButton.addEventListener('click', function () {
                     overlay.style.display = 'none';
                     overlay.innerHTML = ''; // 清空 overlay 内容
                     answerArray = [];
+                    socket.off('speak_end'); 
+                    if(timer){
+                        clearTimeout(timer);
+                    }
                 });
                 board.appendChild(closeButton);
 
@@ -51,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (mode == 1) {
                                     addToAnswer(text, modelAnswer, key);
                                 }
-
+                                
                             });
                         })(topic.title[i][j], topic.answer, key);
                     }
@@ -78,14 +104,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                 }
 
-                var timer = setTimeout(function () {
-                    console.log(1)
-                    // 超时处理
-                    if (mode == 1) {
-                        checkAnswer(topic.answer.trim().substring(3), document.getElementById('answer'), key);
-                    }                    
-                    answerArray = [];
-                }, 10000); // 10秒 = 10000毫秒
+                (function (key, topic, mode) {
+                    timer = setTimeout(function () {
+                        // 超时处理
+                        if (mode == 1 && !document.getElementById('win') && !document.getElementById('lose')) {
+                            checkAnswer(topic.answer.trim().substring(3), document.getElementById('answer'), key);
+                        }
+                        answerArray = [];
+                    }, 10000); 
+                })(key, topic, mode);
 
                 board.appendChild(containerOfTopic);
                 board.appendChild(answer);
@@ -104,6 +131,9 @@ function addToAnswer(text, answer, key) {
     var answerContainer = document.getElementById('answer');
     var button = document.createElement('button');
     button.innerText = text;
+    button.style.background='linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0))';
+
+    console.log(answerContainer);
 
     button.addEventListener('click', function () {
         removeFromAnswer(button);
@@ -138,30 +168,40 @@ function checkAnswer(modelAnswer, answerContainer, key) {
     else {
         isWin = 0;
     }
+
+    console.log(answerContainer);
+
     var buttons = answerContainer.querySelectorAll('button');
     buttons.forEach(function (btn) {
         btn.disabled = true;
     });
-    var buttons = document.querySelectorAll('.grid-item button');
-    buttons.forEach(function (button) {
-        button.disabled = true;
-    });
+
+    var containerOfTopic = document.querySelector(`#board-${key} .grid-item`);
+    if (containerOfTopic) {
+        var buttons = containerOfTopic.querySelectorAll('button');
+        buttons.forEach(function (button) {
+            button.disabled = true;
+        });
+    }
     finalScore(isWin, key);
 }
 
 function finalScore(isWin, key) {
     var board = document.getElementById(`board-${key}`);
-    console.log(key);
 
     if (isWin == 1) {
+        var state = document.getElementById(`state-${key}`);
+        state.style.backgroundImage = 'url(/static/image/win.png)';
+        console.log(state);
         var win = document.createElement('div');
+        win.id = 'win';
         win.innerHTML = "恭喜，回答正确";
         board.appendChild(win);
     }
     else {
         var lose = document.createElement('div');
+        lose.id = 'lose';
         lose.innerHTML = "很遗憾，回答错误，再接再厉！";
         board.appendChild(lose);
-
     }
 }
