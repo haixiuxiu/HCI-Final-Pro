@@ -60,6 +60,3 @@ def playLogic(answer):
             return 0
     else:
         print("出错")  
-
-#questions = load_exam("NineGongGridGame.txt")
-#playLogic(1,questions)
