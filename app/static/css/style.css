@@ -139,54 +139,6 @@ p {
     transition: opacity 0.3s ease;
 }
 
-/* 展开面板容器 */
-.panel-container {
-    position: fixed;
-    top: 50%;
-    right: 60px;
-    transform: translateY(-50%);
-    background-color: #333;
-    /* 修改为深色背景 */
-    width: 0;
-    height: 100%;
-    overflow: hidden;
-    transition: width 0.3s ease;
-}
-
-/* 展开面板内容 */
-.panel-content {
-    padding: 20px;
-    color: white;
-}
-
-/* 显示按钮文字 */
-.expanded .button-text {
-    display: block;
-    opacity: 1;
-}
-
-.menu {
-    display: flex;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 10px;
-}
-
-.menu-item {
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.menu-item:hover {
-    background-color: #ddd;
-}
-
-.menu-item.active {
-    background-color: #f0c040;
-    border-radius: 10px;
-}
-
 .content {
     display: flex;
     justify-content: center;

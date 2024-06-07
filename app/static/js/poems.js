@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function (poemsData) {
     const socket = io();
     // 创建蒙版元素
     var overlay = document.createElement('div');
-    overlay.classList.add('overlay');
+    overlay.classList.add('reciteOverlay');
     document.body.appendChild(overlay);
 
     // 获取容器元素
@@ -35,12 +35,13 @@ document.addEventListener('DOMContentLoaded', function (poemsData) {
                     overlay.style.display = 'block';
                     // 在蒙版上添加所需的内容或操作界面
                     var content = `
-                        <div class="overlay-content">
+                        <div class="reciteOverlay-content">
                         <div id ="content">
-                            <h2>${poem.title}</h2>
-                            <h3>${poem.author}</h3>
+                            <h2 style="text-align: center;">${poem.title}</h2>
+                            <h3 style="text-align: center;">${poem.author}</h3>
                             <p>${poem.content}</p>
                         </div>
+                        <div style="text-align: center;">
                             <button id="start-recitation-btn" :disabled = canStart>开始背诵</button>
                             <button id="close-btn" :disabled = canClose>关闭</button>
                         </div>
@@ -56,8 +57,6 @@ document.addEventListener('DOMContentLoaded', function (poemsData) {
                         document.getElementById('close-btn').disabled = true;
                         setTimeout(function () {
                             // 在这里执行开始背诵的操作
-                            console.log('开始背诵:', poem.title);
-                            console.log('/static/image/recite.gif');
                             var contentDiv = document.getElementById('content');
                             contentDiv.innerHTML = `<img src="/static/image/recite.gif" alt="Poem Image">`;
                             const socket = io();
@@ -68,6 +67,8 @@ document.addEventListener('DOMContentLoaded', function (poemsData) {
                                 document.getElementById('start-recitation-btn').disabled = false;
                                 document.getElementById('close-btn').disabled = false;
                                 mark(key, reward);
+                                feedback(reward);
+                                //overlay.style.display = 'none';
                             });
                         }, 5000);
                     });
@@ -75,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function (poemsData) {
                     document.getElementById('close-btn').addEventListener('click', function () {
                         // 隐藏蒙版
                         overlay.style.display = 'none';
-
                     });
                 });
             })(key, poem);
@@ -83,10 +83,36 @@ document.addEventListener('DOMContentLoaded', function (poemsData) {
             container.appendChild(button);
         }
     }
-    function mark(key, reward) {
-        for (var i = 0; i < reward; i++) {
-            var star = document.getElementById(`star-${key}-${i}`);
-            star.classList.add('rated');
-        }
-    }
 });
+
+function mark(key, reward) {
+    for (var i = 0; i < reward; i++) {
+        var star = document.getElementById(`star-${key}-${i}`);
+        star.classList.add('rated');
+    }
+}
+
+function feedback(reward) {
+    var jiaohu = document.getElementById('content');
+    var score = document.getElementById('score');
+    if (!score) {
+        var score = document.createElement('span');
+        score.id = 'score';
+        score.className = 'score';
+    }
+    console.log(reward);
+    if (reward == 3) {
+        score.style.color = 'red';
+        score.innerHTML = '完全正确！';
+    }
+    else if (reward == 2) {
+        score.innerHTML = '有一点小错误,请再接再厉！';
+    }
+    else if (reward == 1) {
+        score.innerHTML = '错误较多，请继续努力！';
+    }
+    else {
+        score.innerHTML = '很遗憾哦~再试一次吧！';
+    }
+    jiaohu.appendChild(score);
+}
