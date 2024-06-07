@@ -25,11 +25,11 @@
 
 <body class="body">
     <div class="navbar">
-        <div class="navbar-item" onclick="selectMode(1)">学习模式</div>
-        <div class="navbar-item" onclick="selectMode(2)">背诵模式</div>
-        <div class="navbar-item" onclick="selectMode(3)">闯关模式</div>
-        <div class="navbar-item" onclick="selectMode(4)">飞花令</div>
-    </div>
+        <div class="navbar-item" id="nav-xuexi" onclick="XuexiMode()">学习模式</div>
+        <div class="navbar-item" id="nav-beisong" onclick="BeisongMode()">背诵模式</div>
+        <div class="navbar-item" id="nav-chuangguan" onclick="ChuanguanMode()">闯关模式</div>
+        <div class="navbar-item" id="nav-feihualing" onclick="FeihuaMode()">飞花令</div>
+      </div>
 
     <p>飞花令</p>
     <div id="fly">
@@ -49,9 +49,7 @@
     <script src="{{ url_for('static', filename='js/qwen.js') }}"></script>
     <script src="{{ url_for('static', filename='js/yuyin.js') }}"></script>
     <script src="{{ url_for('static', filename='js/feihualing.js') }}"></script>
-    <script>
-        
-    </script>
+    <script src="{{ url_for('static', filename='js/dump.js') }}"></script>
 </body>
 
 </html>

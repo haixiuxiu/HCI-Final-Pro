@@ -1,3 +1,8 @@
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('nav-beisong').classList.add('selected');
+})
+
+
 document.addEventListener('DOMContentLoaded', function (poemsData) {
     const socket = io();
     // 创建蒙版元素
@@ -10,9 +15,16 @@ document.addEventListener('DOMContentLoaded', function (poemsData) {
     // 循环遍历诗歌数据并生成卡片
     for (var key in window.poemsData) {
         if (window.poemsData.hasOwnProperty(key)) {
+            var wrapper = document.createElement('div');
+            wrapper.style.display = 'flex';
+            wrapper.style.flexDirection = 'column';
+            wrapper.style.alignItems = 'center';
+            wrapper.style.width = '200px';
+
             var poem = window.poemsData[key];
-            console.log(poem);
-            var cardHtml = `<img src="/static/image/background.jpg" alt="Poem Image" width="200" height="150">`;
+            var index = parseInt(key, 10) + 1;
+            var cardHtml = `<img src="/static/image/recite${index}.jpg" alt="Poem Image" class="shadow-image" style="border-radius: 20px;" width="200" height="150">`;
+
 
             starsContainer = document.createElement('div');
             starsContainer.className = 'stars';
@@ -25,9 +37,12 @@ document.addEventListener('DOMContentLoaded', function (poemsData) {
 
             var button = document.createElement('div');
             button.id = `${key} `;
-            console.log(button);
             button.innerHTML = cardHtml;
-            button.appendChild(starsContainer);
+
+            wrapper.appendChild(button);
+            wrapper.appendChild(starsContainer);
+
+            container.appendChild(wrapper);
 
             // 使用立即执行函数将 key 和 poem 传递到闭包中
             (function (key, poem) {
@@ -41,35 +56,73 @@ document.addEventListener('DOMContentLoaded', function (poemsData) {
                             <h3>${poem.author}</h3>
                             <p>${poem.content}</p>
                         </div>
-                            <button id="start-recitation-btn" :disabled = canStart>开始背诵</button>
-                            <button id="close-btn" :disabled = canClose>关闭</button>
+                            <button id="start-recitation-btn" class="btn" :disabled="canStart">开始背诵</button>
+<button id="close-btn" class="btn" :disabled="canClose">关闭</button>
+
+             
+
                         </div>
                     `;
+
+
+
                     overlay.innerHTML = content;
                     // 开始背诵按钮的点击事件监听器
                     document.getElementById('start-recitation-btn').addEventListener('click', function () {
                         //给出提示
                         var contentDiv = document.getElementById('content');
                         contentDiv.innerHTML = '在倒计时结束后请开始背诵，注意，您的背诵时间只有15s。准备好了吗？让我们开始吧！';
+                        var countdown = document.createElement('div');
+                        countdown.style.width = "80px";  // 设置宽度
+                        countdown.style.height = "40px";  // 设置高度
+                        countdown.style.position = "absolute";
+                        countdown.style.top = "70%";  // Center vertically
+                        countdown.style.left = "90%";
+                        countdown.style.transform = "translate(-50%, -50%)";
+                        countdown.style.backgroundImage = "url('/static/image/3.gif')";
+                        countdown.style.backgroundSize = "cover";
+                        contentDiv.appendChild(countdown);
                         //背诵期间禁用按键
                         document.getElementById('start-recitation-btn').disabled = true;
                         document.getElementById('close-btn').disabled = true;
+
                         setTimeout(function () {
                             // 在这里执行开始背诵的操作
                             console.log('开始背诵:', poem.title);
                             console.log('/static/image/recite.gif');
+
                             var contentDiv = document.getElementById('content');
                             contentDiv.innerHTML = `<img src="/static/image/recite.gif" alt="Poem Image">`;
+
+
                             const socket = io();
                             answer = poem.title + poem.author + poem.content;
                             socket.emit('beginRecite', answer);
+                            setTimeout(function () {
+                                countdown.style.width = "78px";  // 设置宽度
+                                countdown.style.height = "38px";  // 设置高度
+                                countdown.style.position = "absolute";
+                                countdown.style.top = "95%";  // Center vertically
+                                countdown.style.left = "92%";
+                                countdown.style.transform = "translate(-50%, -50%)";
+                                countdown.style.backgroundImage = "url('/static/image/5.gif')";
+                                countdown.style.backgroundSize = "cover";
+                                contentDiv.appendChild(countdown);
+
+                                setTimeout(function () {
+                                    countdown.parentNode.removeChild(countdown);
+                                }, 5000);
+
+                            }, 13000)
+
+
                             socket.on('recite_end', (reward) => {
                                 console.log(reward);
                                 document.getElementById('start-recitation-btn').disabled = false;
                                 document.getElementById('close-btn').disabled = false;
                                 mark(key, reward);
                             });
-                        }, 5000);
+                        }, 3000);
                     });
                     // 关闭蒙版按钮的点击事件监听器
                     document.getElementById('close-btn').addEventListener('click', function () {
@@ -80,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function (poemsData) {
                 });
             })(key, poem);
 
-            container.appendChild(button);
+            //container.appendChild(button);
         }
     }
     function mark(key, reward) {

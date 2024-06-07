@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('nav-chuangguan').classList.add('selected');
+  })
+
 document.addEventListener('DOMContentLoaded', function () {
     const socket = io();
     // 创建蒙版元素

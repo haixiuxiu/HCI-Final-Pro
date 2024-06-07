@@ -20,16 +20,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menb.css') }}">
-    <title>古风字体</title>
+
+   
 </head>
 
 <body class="body">
     <div class="navbar">
-        <div class="navbar-item" onclick="selectMode(1)">学习模式</div>
-        <div class="navbar-item" onclick="selectMode(2)">背诵模式</div>
-        <div class="navbar-item" onclick="selectMode(3)">闯关模式</div>
-        <div class="navbar-item" onclick="selectMode(4)">飞花令</div>
-    </div>
+        <div class="navbar-item" id="nav-xuexi" onclick="XuexiMode()">学习模式</div>
+        <div class="navbar-item" id="nav-beisong" onclick="BeisongMode()">背诵模式</div>
+        <div class="navbar-item" id="nav-chuangguan" onclick="ChuanguanMode()">闯关模式</div>
+        <div class="navbar-item" id="nav-feihualing" onclick="FeihuaMode()">飞花令</div>
+      </div>
 
     <p>九宫格游戏</p>
     <p>游戏规则：每关游戏将给出一个九宫格，九宫格中包含一句五言或七言诗句，你需要找出正确的诗句
@@ -44,12 +45,16 @@
     <script src="{{ url_for('static', filename='js/element.js') }}"></script>
     <script src="{{ url_for('static', filename='js/qwen.js') }}"></script>
     <script src="{{ url_for('static', filename='js/NineGongGridGame.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dump.js') }}"></script>
     <script>
         var questionsOfGridData = {{ questionsOfGridData| safe }};
         document.getElementById('modeSelect').addEventListener('click', function () {
             this.classList.toggle('flipped');
         });
     </script>
+
+  
+  
 </body>
 
 </html>

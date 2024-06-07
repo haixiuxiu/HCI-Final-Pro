@@ -22,25 +22,29 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menb.css') }}">
     <title>古风字体</title>
+
+
+<div id="countdown"></div>
 </head>
 
 <body class="body">
     <div class="navbar">
-        <div class="navbar-item" onclick="selectMode(1)">学习模式</div>
-        <div class="navbar-item" onclick="selectMode(2)">背诵模式</div>
-        <div class="navbar-item" onclick="selectMode(3)">闯关模式</div>
-        <div class="navbar-item" onclick="selectMode(4)">飞花令</div>
-    </div>
+        <div class="navbar-item" id="nav-xuexi" onclick="XuexiMode()">学习模式</div>
+        <div class="navbar-item" id="nav-beisong" onclick="BeisongMode()">背诵模式</div>
+        <div class="navbar-item" id="nav-chuangguan" onclick="ChuanguanMode()">闯关模式</div>
+        <div class="navbar-item" id="nav-feihualing" onclick="FeihuaMode()">飞花令</div>
+      </div>
 
-    <p>背诵模式</p>
+ 
     <div id="cards-container" class="recite-card-container"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
     <script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/element.js') }}"></script>
     <script src="{{ url_for('static', filename='js/qwen.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/learn.js') }}"></script>
+ 
     <script src="{{ url_for('static', filename='js/poems.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dump.js') }}"></script>
     <script>
         poemsData = JSON.parse('{{ poemData|safe }}');
     </script>

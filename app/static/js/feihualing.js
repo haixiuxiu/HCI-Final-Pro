@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('nav-feihualing').classList.add('selected');
+})
+
 let currentKeyword = '';
 
 async function startGame() {

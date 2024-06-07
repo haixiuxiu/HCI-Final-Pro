@@ -1,7 +1,4 @@
-function togglePanel() {
-    var panel = document.getElementById('panel');
-    panel.classList.toggle('expanded');
-}
+
 
 function XuexiMode() {
     // 导航到学习模式页面
