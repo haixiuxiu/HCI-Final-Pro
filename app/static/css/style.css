@@ -1,5 +1,5 @@
 .body {
-    font-family: 'Long Cang', sans-serif;
+    font-family: "宋体", sans-serif;
       background-color: #f8f4e9;
       /* 页面背景颜色 */
       margin: 0;
@@ -59,7 +59,7 @@
   }
 
 p {
-    font-size: 26px;
+    font-size: 20px;
     line-height: 1.8;
     color: #333;
     /* 文字颜色 */
@@ -228,8 +228,6 @@ p {
     box-sizing: border-box; /* 包含内边距和边框 */
 }
 
-<<<<<<< HEAD
-=======
 .game-card-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -245,7 +243,6 @@ p {
     box-sizing: border-box; /* 包含内边距和边框 */
 }
 
->>>>>>> 185086832b546c40c28ad7cef1cabef4b9d52984
 .stars {
     margin-top: 10px;
 }
@@ -321,14 +318,7 @@ p {
 
 
 
-.container {
-    display: flex;
-    flex-direction: column; /* 让卡片垂直排列 */
-    align-items: center; /* 水平居中对齐 */
-    gap: 10px; /* 卡片之间的间隔 */
-    width: 100%; /* 容器宽度 */
-    height: 100%; /* 容器高度 */
-}
+
 
 .learncard {
     background: rgba(244, 244, 244, 0.5);

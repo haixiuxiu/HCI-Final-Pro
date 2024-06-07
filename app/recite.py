@@ -33,16 +33,10 @@ def load_poems(file_path):
 # 进行语音识别和背诵检查
 def check_recitation(answer):
     # 进行语音识别
-<<<<<<< HEAD
-    record_audio('recite.wav',20)
-    result = recognize_audio('recite.wav')
-
-=======
     record_audio('recite.wav',15)
     result = recognize_audio('recite.wav')
     answer = remove_punctuation(answer)
     print(answer)
->>>>>>> 185086832b546c40c28ad7cef1cabef4b9d52984
     if result!='识别失败':
         print("识别结果:", result)
         result = remove_punctuation(result)
