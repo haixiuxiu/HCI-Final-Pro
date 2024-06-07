@@ -134,20 +134,38 @@ def handle_message(data):
 def handle_record_audio():
     print("Recording started")
     filename = 'audio.wav'
-    record_audio(filename, duration=15)
+    record_audio(filename, duration=10)
     # 录音结束后立即进行语音识别
-    # recognize_result = recognize_audio(filename)
-    recognize_result = recognize_audio('audio4.wav')#测试用：寄蜉蝣于天地，渺沧海之一粟
-    #recognize_result = recognize_audio('audio2.wav')#粤语测试用：寄蜉蝣于天地，渺沧海之一粟
+    recognize_result = recognize_audio(filename)
     # 向客户端发送录音完成事件
     emit('audio_recognized', {'result': recognize_result})
     print(recognize_result)
+
+@socketio.on('startRecordingFly')
+def handle_record_audio():
+    print("Recording started")
+    filename = 'feihualing.wav'
+    record_audio(filename, duration=6)
+    # 录音结束后立即进行语音识别
+    recognize_result = recognize_audio(filename)
+    #recognize_result = recognize_audio('audio4.wav')#测试用：寄蜉蝣于天地，渺沧海之一粟
+    #recognize_result = recognize_audio('audio2.wav')#粤语测试用：寄蜉蝣于天地，渺沧海之一粟
+    # 向客户端发送录音完成事件
+    emit('audio_recognizedFly', {'result': recognize_result})
+    print(recognize_result)
+
 
 @socketio.on('beginRecite')
 def check(answer):
     print('beginRecite')
     reward = check_recitation(answer)
-    emit('recite_end',2)
+    emit('recite_end',reward)
+
+@socketio.on('beginSpeak')
+def check(answer):
+    print(answer[3:])
+    reward = playLogic(answer[3:])
+    emit('speak_end',reward)
 
 @main.route('/page1')
 def page1():
@@ -168,10 +186,13 @@ def page3():
 @main.route('/page4')
 def page4():
     return render_template('飞花令.html')
+
+# 初始化 HostAgent 实例
+host_agent = HostAgent(keywords)
 @main.route('/start', methods=['GET'])
 def start_game():
     global current_keyword
-    current_keyword = random.choice(keywords)
+    current_keyword = host_agent.give_keyword()
     return jsonify({'keyword': current_keyword})
 
 @main.route('/submit', methods=['POST'])

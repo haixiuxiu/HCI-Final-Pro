@@ -28,44 +28,93 @@
 }
 
 .grid-item {
-    display: inline-block;
     justify-content: center;
     align-items: center;
     margin: 10px;
 }
 
 .grid-item button {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    margin: 2px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    width: 60px;
+    height: 60px;
+    margin: 10px;
 }
 
 .boardOfNine{
+   display: flex;
+    flex-direction: column; /* 垂直布局 */
+    align-items: center;
     background-image: url('/static/image/boardOfNine.jpg');
-    background-size: cover;
+    background-size: cover; /* 使图片覆盖整个区域 */
     width: 500px;
     height: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 20px;
+    box-sizing: border-box; /* 包括 padding 在内的大小 */
 }
 
 .modeSelect {
-    width: 100px; /* 设置按钮宽度 */
-    height: 100px; /* 设置按钮高度 */
+    width: 20px; 
+    height: 50px; 
     background-image: url('/static/image/modeButton.jpg');
-    background-size: cover; /* 使图片覆盖按钮 */
+    background-size: cover;
     background-repeat: no-repeat;
-    border: none; /* 移除按钮边框 */
-    cursor: pointer; /* 鼠标悬停时显示手型 */
+    cursor: pointer; 
     border: none;
-    transition: transform 0.6s; /* 添加过渡效果 */
-    transform-style: preserve-3d; /* 保持3D效果 */
+    transition: transform 0.6s; 
+    transform-style: preserve-3d; 
 }
 
 .modeSelect.flipped {
     transform: rotateY(180deg);
-    transition: transform 0.6s; /* 添加过渡效果 */
-    transform-style: preserve-3d; /* 保持3D效果 */
+    transition: transform 0.6s; 
+    transform-style: preserve-3d; 
+}
+
+.answer {
+    margin-top: 20px; /* 让答案部分与九宫格有一定间距 */
+    text-align: center; /* 答案居中 */
+}
+
+.close-button {
+    position: absolute;
+    top :23%;
+    right: 35%;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.background-container {
+    background-image: url('/static/image/gameRuleBack.png');
+    background-position: center; 
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 20px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+    height: 100hv;
+}
+
+.background-container p {
+    margin: 10px 0;
+}
+
+.chenggong{
+    margin-top: 30px;
+    font-family:'Long Cang', sans-serif;
+    font-size: 26px;
+    color: red;
+}
+
+.shibai{
+    margin-top: 30px;
+    font-family:'Long Cang', sans-serif;
+    font-size: 26px;
+    color: black;
 }

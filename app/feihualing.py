@@ -3,9 +3,18 @@ class HostAgent:
     def __init__(self, keywords):
         self.keywords = keywords
         self.current_keyword = None
+        self.first_round = True
+        self.index = 0
 
     def give_keyword(self):
-        self.current_keyword = random.choice(self.keywords)
+        if self.first_round:
+            if self.index < len(self.keywords):
+                self.current_keyword = self.keywords[self.index]
+                self.index += 1
+            if self.index >= len(self.keywords):
+                self.first_round = False
+        else:
+            self.current_keyword = random.choice(self.keywords)
         return self.current_keyword
 
 class JudgeAgent:
@@ -16,7 +25,7 @@ class JudgeAgent:
         return keyword in sentence
 
 # 示例关键字和诗句
-keywords = ['花', '月', '山', '水']
+keywords = ['月','花', '山', '水', '树', '风', '雨', '云', '天', '雾', '露', '霜', '雪', '声', '草', '木', '石', '鸟', '虫']
 poems = [
     '床前明月光，疑是地上霜',
     '举头望明月，低头思故乡',
@@ -36,7 +45,7 @@ def get_ai_response(keyword, user_response):
     
     # 准备对话内容作为模型输入
     context = "\n".join([f"{msg['role']}: {msg['content']}" for msg in dialogues])
-    prompt = f"{context}\nAssistant: 回复一句包含关键字'{keyword}'的诗句，且不能与之前的回复或用户输入重复。"
+    prompt = f"{context}\nAssistant: 回复一句包含关键字'{keyword}'的诗句，且不能与之前的回复或用户输入重复,而且必须是正确的古诗，不能是编纂出来的诗句。"
 
     # 初始化一个变量来存储AI的回复
     assistant_reply = ""

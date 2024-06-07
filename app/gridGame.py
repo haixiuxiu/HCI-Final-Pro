@@ -14,14 +14,12 @@ class QuestionOfNineGridEncoder(json.JSONEncoder):
         return super(QuestionOfNineGridEncoder, self).default(obj)
 
 class questionOfNineGrid:
-    def __init__(self,title,hint,answer):
+    def __init__(self,title,answer):
         self.title = title
-        self.hint = hint
         self.answer = answer
     def to_dict(self):
         return {
             "title": self.title,
-            "hint": self.hint,
             "answer": self.answer
         }
 
@@ -30,44 +28,35 @@ def load_exam(file_path):
     with open(file_path,'r', encoding='utf-8') as file:
         lines = file.readlines()
         topic = []
-        hint = []
         for i in range(0,len(lines)):
             if '#' in lines[i]:
                 topic = []
-                hint = []
                 answer = ''
                 i=i+2
                 for j in range(3):
                     word = lines[i+j].split()
                     topic.append(word)
-                i = i+j+1
-                for j in range(2):
-                    hint.append(lines[i+j])
                 i=i+j+1
                 answer = lines[++i]
-                question = questionOfNineGrid(topic,hint,answer)
+                question = questionOfNineGrid(topic,answer)
                 questions.append(question)
     return questions
 
 #可以只传answer
-def playLogic(numOfQuestion,questions):
+def playLogic(answer):
     print("请在10s内作答，如作答完毕，点击结束录音")
-    filename = "question.wav"
-    record_audio(filename,10)
-    result = recognize_audio(filename)
+    record_audio('speak.wav',10)
+    result = recognize_audio('speak.wav')
 
     if result != '识别失败':
         print("识别结果：",result)
 
         #文本匹配
-        distance = Levenshtein.distance(result,questions[numOfQuestion].answer[3:0])
+        distance = Levenshtein.distance(result,answer)
         #结果反馈
-        if distance<10:
-            print("背诵正确，诗词为：",questions[numOfQuestion].answer[3:0])
+        if distance<=2:
+            return 1
         else:
-            print("背诵错误，正确答案为：",questions[numOfQuestion].answer[3:0],", 匹配距离:", distance)
+            return 0
     else:
         print("出错")  
-
-#questions = load_exam("NineGongGridGame.txt")
-#playLogic(1,questions)

@@ -221,10 +221,31 @@ p {
 .recite-card {
     padding: 20px;
     border: 1px solid #ccc;
-    margin: 5px; /* 控制卡片周围的间距 */
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top:5px;
+    margin-bottom: 5px;
     box-sizing: border-box; /* 包含内边距和边框 */
 }
 
+<<<<<<< HEAD
+=======
+.game-card-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px; /* 控制卡片之间的间距 */
+}
+.game-card {
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top:5px;
+    margin-bottom: 5px;
+    box-sizing: border-box; /* 包含内边距和边框 */
+}
+
+>>>>>>> 185086832b546c40c28ad7cef1cabef4b9d52984
 .stars {
     margin-top: 10px;
 }

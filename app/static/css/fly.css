@@ -1,0 +1,217 @@
+:root {
+    --background-color: #f9cdad;
+    --border-color: #7591AD;
+    --text-color: #34495e;
+    --color1: rgba(236, 229, 206, 0.7);
+    --color2: #83af9b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+#fly {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-container {
+    min-width: 200px; /* 设置初始宽度 */
+    width: auto; /* 根据内容自动调整宽度 */
+    max-width: 70%; /* 限制最大宽度 */
+    margin: 20px auto;
+    height: 400px; /* 更高的高度 */
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: black; /* 设置文本颜色为黑色 */
+    position: relative; /* 确保背景图片正确显示 */
+    background-image: url('/static/image/flybg.jpg'); /* 设置背景图片 */
+    background-size: cover;
+    background-position: center;
+}
+.chat-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    border-radius: 8px;
+}
+.chat-content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    border-radius: 8px;
+}
+.message {
+    display: flex;
+    margin-bottom: 60px; /* 控制消息框之间的距离 */
+    padding: 15px;
+    border-radius: 11px;
+    box-shadow: 5px 5px var(--color2);
+    position: relative;
+    background-color: var(--color1);
+    color: var(--text-color);
+    animation: animate1 4s ease-in-out infinite;
+    align-items: center; /* 控制消息框内部项目的垂直对齐方式 */
+    width: auto; /* 根据内容自动调整宽度 */
+}
+.message.user {
+    justify-content: flex-start;
+    align-self: flex-start;
+    background-color: rgba(209, 231, 221, 0.7);
+    color: #0f5132;
+}
+.message.ai {
+    justify-content: flex-end;
+    align-self: flex-end;
+    background-color: rgba(248, 215, 218, 0.7);
+    color: #842029;
+}
+.message-content {
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: left; /* 控制文本的水平对齐方式 */
+    word-wrap: break-word; /* 确保长单词或链接在小窗口中自动换行 */
+}
+
+.message::after, .message::before {
+    position: absolute;
+    content: '';
+    height: 11px;
+    background-color: var(--color1);
+    border-radius: 11px;
+    box-shadow: 5px 5px var(--color2);
+}
+
+.message.user::after, .message.user::before {
+    background-color: rgba(209, 231, 221, 0.7);
+    box-shadow: 5px 5px rgba(163, 212, 194, 0.7);
+}
+
+.message.ai::after, .message.ai::before {
+    background-color: rgba(248, 215, 218, 0.7);
+    box-shadow: 5px 5px rgba(241, 193, 198, 0.7);
+}
+
+.message::after {
+    width: 50px;
+    bottom: -25px;
+    animation: animate2 4s ease-in-out infinite;
+}
+
+.message::before {
+    width: 11px;
+    bottom: -50px;
+    animation: animate3 4s ease-in-out infinite;
+}
+
+@keyframes animate1 {
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes animate2 {
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes animate3 {
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+.input-container {
+    display: none; /* 初始隐藏 */
+    margin-top: 20px;
+}
+.input-container input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    font-size: 14px;
+}
+.input-container button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+.input-container button:hover {
+    background-color: #0056b3;
+}
+#keyword, #result {
+    margin: 20px 0;
+    font-size: 16px;
+    color: white; /* 设置文本颜色为白色 */
+}
+#result, #keyword {
+    display: none; /* 初始隐藏 */
+}
+.level-info {
+    margin: 20px 0;
+    font-size: 18px;
+    color: white; /* 设置文本颜色为白色 */
+}
+.level-info span {
+    font-weight: bold;
+}
+button.start-game {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+button.start-game:hover {
+    background-color: #218838;
+}
+.overlayFly {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+}
+.overlayFly img {
+    max-width: 80%;
+    border-radius: 10px;
+}
+.flybtn{
+    bottom: 20px;
+    right: 20px;
+    background-color: #28a745;
+    color: white;
+    display: none;
+}
