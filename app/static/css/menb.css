@@ -79,13 +79,14 @@
 .modeSelect {
     width: 20px; 
     height: 50px; 
-    background-image: url('/static/image/modeButton.jpg');
+    background-image: url('/static/image/modeButton.png');
     background-size: cover;
     background-repeat: no-repeat;
     cursor: pointer; 
     border: none;
     transition: transform 0.6s; 
     transform-style: preserve-3d; 
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .modeSelect.flipped {
@@ -182,4 +183,16 @@
     color: grey;  
     background-color: #e0e0e0;
     box-shadow: none; 
+}
+
+.home {
+    width: 42px; 
+    height: 58px;
+    margin-right: 47px;
+    background-image: url('/static/image/home.png'); 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-color: rgba(255, 255, 255, 0); /* 设置背景颜色透明 */
+    border: none;
 }

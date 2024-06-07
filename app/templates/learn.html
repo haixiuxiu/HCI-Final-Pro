@@ -21,12 +21,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menb.css') }}">
 </head>
 
 <body class="body">
 
-
   <div class="navbar">
+    <button id="home" class="home" onclick="gobackHome()"></button>
     <div class="navbar-item" id="nav-xuexi" onclick="XuexiMode()">研学探秘</div>
     <div class="navbar-item" id="nav-beisong" onclick="BeisongMode()">成诵古韵</div>
     <div class="navbar-item" id="nav-chuangguan" onclick="ChuanguanMode()">闯关夺宝</div>

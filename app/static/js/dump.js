@@ -18,3 +18,8 @@ function FeihuaMode() {
 
     window.location.href = '/page4';
 }
+
+function gobackHome() {
+
+    window.location.href = '/page0';
+}

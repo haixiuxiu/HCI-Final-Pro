@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 closeButton.className = 'close-button';
                 closeButton.innerHTML = '&times;';
                 var timer;
+                var timer2;
                 closeButton.addEventListener('click', function () {
                     overlay.style.display = 'none';
                     overlay.innerHTML = ''; // 清空 overlay 内容
@@ -59,6 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     socket.off('speak_end');
                     if (timer) {
                         clearTimeout(timer);
+                    }
+                    if (timer2) {
+                        clearTimeout(timer2);
                     }
                 });
                 board.appendChild(closeButton);
@@ -110,20 +114,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         countdown.style.backgroundImage = "url('/static/image/game5.gif')";
                         countdown.style.backgroundSize = "cover";
                         container.appendChild(countdown);
-
-                        setTimeout(function () {
+                        socket.off('speak_end');
+                        socket.on('speak_end', (reward) => {
+                            if (reward == 1) {
+                                isWin = 1;
+                            }
+                            else {
+                                isWin = 0;
+                            }
+                            finalScore(isWin, key);
                             countdown.parentNode.removeChild(countdown);
-                            socket.off('speak_end');
-                            socket.on('speak_end', (reward) => {
-                                if (reward == 1) {
-                                    isWin = 1;
-                                }
-                                else {
-                                    isWin = 0;
-                                }
-                                finalScore(isWin, key);
-                            });
-                        }, 5000);
+                        });
                     }, 5000);
                 }
 
@@ -144,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             countdown.style.backgroundSize = "cover";
                             container.appendChild(countdown);
 
-                            setTimeout(function () {
+                            timer2 = setTimeout(function () {
                                 if (countdown.parentNode) {
                                     countdown.parentNode.removeChild(countdown);
                                 }
@@ -255,7 +256,7 @@ function finalScore(isWin, key) {
         }
     }
     var countdown = document.getElementById('countdown');
-    if(countdown){
+    if (countdown) {
         countdown.parentNode.removeChild(countdown);
     }
 }

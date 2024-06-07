@@ -185,7 +185,11 @@ def page3():
 
 @main.route('/page4')
 def page4():
-    return render_template('飞花令.html')
+    return render_template('feihualing.html')
+
+@main.route('/page0')
+def page0():
+    return render_template('main.html')
 
 # 初始化 HostAgent 实例
 host_agent = HostAgent(keywords)

@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded',function(){
-  document.getElementById('nav-feihualing').classList.add('selected');
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('nav-feihualing').classList.add('selected');
 })
 
 let currentKeyword = '';
@@ -23,16 +23,15 @@ function getLevel(levelNumber) {
     return levels[levelNumber - 1];
 }
 
-async function startGame(conf=true) {
+async function startGame(conf = true) {
     // 首先显示规则介绍
-    var start=false
-    if(conf)
-    {
+    var start = false
+    if (conf) {
         showRules();
         // 等待用户阅读规则后，再开始游戏
         start = confirm('请阅读并理解规则后点击确定开始游戏');
     }
-    else{
+    else {
         start = true;
     }
     if (start) {
@@ -44,14 +43,14 @@ async function startGame(conf=true) {
             document.getElementById('judge-result').innerText = '';
             document.getElementById('user-input').value = '';
             const chatContainer = document.getElementById('chat-container');
-            chatContainer.innerHTML='';
+            chatContainer.innerHTML = '';
 
             // 显示输入框和提交按钮
             console.log('显示输入框和提交按钮');
             const inputContainer = document.getElementById('input-container');
             const resultContainer = document.getElementById('result');
             const keywordContainer = document.getElementById('keyword');
-            const fly_start_recording=document.getElementById('fly-start-recording');
+            const fly_start_recording = document.getElementById('fly-start-recording');
             const chat_content = document.getElementById('chat-content');
 
             if (fly_start_recording) fly_start_recording.style.display = 'block';
@@ -60,7 +59,7 @@ async function startGame(conf=true) {
             if (keywordContainer) keywordContainer.style.display = 'block';
             if (chat_content) chat_content.style.display = 'flex';
             if (chatContainer) chat_content.style.display = 'flex';
-            
+
             correctAnswers = 0;
             updateLevelInfo();
         } else {
@@ -108,7 +107,10 @@ function showRules() {
                 <li>必须包含主持人提供的关键字；</li>
                 <li>不能和之前的诗句重复。</li>
             </ol>
-            <button onclick="closeRulesModal()">我知道了</button>
+            <div style="text-align: right;">
+                <button onclick="closeRulesModal()" class='reciteBtn'>我知道了</button>
+            </div>
+
         </div>
     `;
 
@@ -127,7 +129,7 @@ function showLevelOverlay() {
     const levelImage = document.getElementById('level-image');
 
     levelText.innerText = currentLevel;
-    
+
 
     overlay.style.display = 'flex';
 }
@@ -207,9 +209,9 @@ function startRecordingFly() {
     socket.emit('startRecordingFly');
 }
 function sendMessageWithResultFly(result) {
-  const message = result; // 使用识别结果作为消息
-  document.getElementById('user-input').value = message;
-  sendMessage();
+    const message = result; // 使用识别结果作为消息
+    document.getElementById('user-input').value = message;
+    sendMessage();
 }
 socket.on('audio_recognizedFly', (data) => {
     //console.log('audio_recognized', data);
@@ -217,4 +219,4 @@ socket.on('audio_recognizedFly', (data) => {
     const result = data.result;
     sendMessageWithResultFly(result);
     canPush = true
-  })
+})

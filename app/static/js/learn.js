@@ -9,7 +9,6 @@ canPush = true
 function sendMessageWithResult(result) {
   const message = result; // 使用识别结果作为消息
   document.getElementById('message').value = message;
-  sendMessage();
 }
 
 function startRecording() {
@@ -18,15 +17,6 @@ function startRecording() {
   socket.emit('startRecording');
 }
 
-function sendMessage() {
-  const message = document.getElementById('message').value;
-  console.log('Sending message!!!:', message);
-
-  // Emit the message to the server
-  socket.emit('send_message', { message: message });
-
-  
-}
 socket.on('audio_recognized', (data) => {
   //console.log('audio_recognized', data);
   console.log('audio_recognized');
