@@ -45,7 +45,7 @@ def handle_message(data):
     prompt = f"{context}\nassistant:"
     #print(f"Assistant prompt: {prompt}")  # Debug output
     response_generator = dashscope.Generation.call(
-        model='qwen-turbo',
+        model='qwen-plus',
         prompt=prompt,
         stream=True,
         top_p=0.8
@@ -111,7 +111,7 @@ def handle_message(data):
 
     # 调用 AI 模型生成回复
     response_generator = dashscope.Generation.call(
-        model='qwen-turbo',
+        model='qwen-plus',
         prompt=prompt,
         stream=True,
         top_p=0.8

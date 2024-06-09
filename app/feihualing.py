@@ -55,7 +55,7 @@ def get_ai_response(keyword, user_response):
     while True:
         # 调用通义千问大模型生成回复
         response_generator = dashscope.Generation.call(
-            model='qwen-turbo',
+            model='qwen-plus',
             prompt=prompt,
             stream=True,
             top_p=0.8
